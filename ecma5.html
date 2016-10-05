@@ -19,7 +19,7 @@
 		ul, dl {
 			margin:0; padding:0;
 		}
-		ul, ol {
+		ul {
 			list-style: none;
 		}
 		.lst-df li{
@@ -60,6 +60,13 @@
 			border:solid 1px #eee; border-top: none;
 			border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;
 		}
+		.spec {
+			color: green !important;
+			text-decoration: none;
+			}
+			.spec:hover {
+				text-decoration: underline;
+			}
 	</style>
 </head>
 <body>
@@ -106,9 +113,20 @@
 	<li> <strong>Object.defineProperties( 객체명, {속성명 : {옵션}} ) : </strong> 객체에 속성을 여러 개 추가 </li>
 </ul>
 
-<h3>Object.defineProperty()</h3>
+<h3>Object.defineProperty ( O, P, Attributes )</h3>
 <div class="txt">
-	Object에 프로퍼티를 추가하거나 프로퍼티 속성 변경
+	<p>Object에 프로퍼티를 추가하거나 프로퍼티 속성 변경</p>
+	<p>The <b>defineProperty</b> function is used to add an own property and/or update the attributes of an existing own
+	        property of an object. When the <b>defineProperty</b> function is called, the following steps are taken:</p>
+	<ol class="proc">
+		<li>If Type(<i>O</i>) is not Object throw a <b>TypeError</b> exception.</li>
+		<li>Let <i>name</i> be ToString (<i>P</i>).</li>
+		<li>Let <i>desc</i> be the result of calling ToPropertyDescriptor with <i>Attributes</i> as
+		  the argument.</li>
+		<li>Call the [[DefineOwnProperty]] internal method of <i>O</i> with arguments <i>name</i>, <i>desc</i>, and
+		  <b>true</b>.</li>
+		<li>Return <i>O</i>.</li>
+	</ol>
 </div>
 <code class="code">
 	<pre>
@@ -169,7 +187,10 @@ console.log(obj.name);		// get 호출
 	</div>
 </div>
 
-<h3>Object.defineProperties()</h3>
+<h3>Object.defineProperties ( O, Properties )</h3>
+<div class="txt">
+	<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.7" target="_blank" class="spec">Specification</a>
+</div>
 <code class="code">
 	<pre>
 var obj = {};
@@ -195,10 +216,11 @@ console.log(obj.type);
 
 
 <h2>객체 생성(상속)</h2>
-<h3>Object.create()</h3>
+<h3>Object.create ( O [, Properties] )</h3>
 <div class="txt">
-	Object.create( 객체명, {속성명:{옵션}} ) : 첫 번째 매개 변수로 받은 객체에 두 번째 매개 변수로 받은 속성을 추가하여 새로운 객체를 리턴한다. <br>
-	이 때 두 번째 매개변수는 Object.defineProperties와 같은 문법이다.
+	<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.5" target="_blank" class="spec">Specification</a>
+	<p>Object.create( 객체명, {속성명:{옵션}} ) : 첫 번째 매개 변수로 받은 객체에 두 번째 매개 변수로 받은 속성을 추가하여 새로운 객체를 리턴한다. <br>
+	이 때 두 번째 매개변수는 Object.defineProperties와 같은 문법이다.</p>
 </div>
 <code class="code">
 	<pre>
@@ -250,8 +272,14 @@ console.log(obj.region);		// undefined(속성 추가 제한됨)
 </code>
 <div class="code-desc">
 	<ul class="lst-df">
-		<li><strong>Object.preventExtensions(객체명) : </strong> 객체의 속성 추가를 제한한다.</li>
-		<li><strong>Object.isExtensible(객체명) : </strong> 객체의 속성 추가가 가능한지 확인한다. (true/false)</li>
+		<li>
+			<strong>Object.preventExtensions ( O ) : </strong> 객체의 속성 추가를 제한한다.
+			<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.10" target="_blank" class="spec">Specification</a>
+		</li>
+		<li>
+			<strong>Object.isExtensible ( O ) : </strong> 객체의 속성 추가가 가능한지 확인한다. (true/false)
+			<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.13" target="_blank" class="spec">Specification</a>
+		</li>
 	</ul>
 </div>
 
@@ -274,22 +302,42 @@ console.log(person.gender);		// Male 정상 출력
 </code>
 <div class="code-desc">
 	<ul class="lst-df">
-		<li><strong>Object.seal(객체명) : </strong> 객체의 속성 자체를 제한한다.</li>
-		<li><strong>Object.isSealed(객체명) : </strong> 객체의 속성 삭제가 가능한지 확인한다. (true/false)</li>
+		<li>
+			<strong>Object.seal ( O ) : </strong> 객체의 속성 삭제를 제한한다. 
+			<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.8" target="_blank" class="spec">Specification</a>
+		</li>
+		<li>
+			<strong>Object.isSealed ( O ) : </strong> 객체의 속성 삭제가 가능한지 확인한다. (true/false)
+			<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.11" target="_blank" class="spec">Specification</a>
+		</li>
 	</ul>
 </div>
 
 <h2>동적 속성 수정 및 삭제 제한</h2>
 <ul class="lst-df">
-	<li><strong>Object.freeze(객체명) : </strong>객체의 속성 수정 및 삭제를 제한합니다.</li>
-	<li><strong>Object.isFrozen(객체명) : </strong>객체의 속성 수정 및 삭제가 가능한지 확인한다. (true/false)</li>
+	<li>
+		<strong>Object.freeze ( O ) : </strong>객체의 속성 수정 및 삭제를 제한합니다.
+		<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.9" target="_blank" class="spec">Specification</a>
+	</li>
+	<li>
+		<strong>Object.isFrozen ( O ) : </strong>객체의 속성 수정 및 삭제가 가능한지 확인한다. (true/false)
+		<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.12" target="_blank" class="spec">Specification</a>
+	</li>
 </ul>
 
 <h2>객체 보조 메소드</h2>
 <ul class="lst-df">
-	<li> <storng>Object.keys(객체명) : </storng> 객체의 반복 순환 가능한 속성명으로 배열을 만든다. (enumerable : true인 것) </li>
-	<li> <storng>Object.getOwnPropertyNames(객체명) : </storng> 객체의 모든 속성명으로 배열을 만듭니다. </li>
-	<li> <storng>Object.getOwnPropertyDescriptor(객체명, 속성명) : </storng> 특정 속성의 옵션 객체를 추출합니다. </li>
+	<li> 
+		<storng>Object.keys ( O ) : </storng> 객체의 반복 순환 가능한 속성명으로 배열을 만든다. (enumerable : true인 것) 
+		<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.14" target="_blank" class="spec">Specification</a>
+	</li>
+	<li> 
+		<storng>Object.getOwnPropertyNames ( O ) : </storng> 객체의 모든 속성명으로 배열을 만듭니다. 
+		<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.4" target="_blank" class="spec">Specification</a>
+	</li>
+	<li> 
+		<storng>Object.getOwnPropertyDescriptor ( O, P ) : </storng> 특정 속성의 옵션 객체를 추출합니다.
+	</li>
 </ul>
 <code class="code">
 	<pre>
@@ -315,7 +363,10 @@ console.log(Object.getOwnPropertyNames(obj)) // name, gender, region
 		따라서 위의 gender가 출력되지 않았던 것이다.
 	</div>
 </div>
-<h3>Object.getOwnPropertyDescriptor()</h3>
+<h3>Object.getOwnPropertyDescriptor ( O, P )</h3>
+<div class="txt">
+	<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.3" target="_blank" class="spec">Specification</a>
+</div>
 <code class="code">
 	<pre>
 var obj = { name : 'Kim' };
