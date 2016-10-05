@@ -3,71 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ECMAScript5</title>
-	<style>
-		body {
-			margin: 30px;
-			line-height: 1.7;
-			font-family:NanumGothic,sans-serif; font-size: 14px; color:#333;
-		}
-		h2 {
-			margin-top: 50px;
-			border-bottom: dashed 1px #ccc;
-		}
-		div, ul, ol {
-			color: #666;
-		}
-		ul, dl {
-			margin:0; padding:0;
-		}
-		ul {
-			list-style: none;
-		}
-		.lst-df li{
-			line-height: 1.8;
-			}
-			.lst-df li:before {
-				content: '-';
-				display: inline-block;
-				margin-right: 5px;
-			}
-		.lst-df a {
-				color: #666;
-				text-decoration: none;
-			}
-			.lst-df a:hover {
-				text-decoration: underline;
-			}
-
-		.txt {
-			margin-top:10px; margin-bottom: 10px;
-		}
-		.code {
-			display: block;
-			background-color: #f8f8f8;
-			border:solid 1px #eee; 
-			border-top-left-radius: 4px;border-top-right-radius: 4px;
-			font-size:12px;
-			}
-			.code pre {
-				margin: 15px 20px 0;
-				text-align:left;
-			}
-			.lst-df + .code {
-				margin-top: 10px;
-			}
-		.code-desc {
-			padding: 10px 20px;
-			border:solid 1px #eee; border-top: none;
-			border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;
-		}
-		.spec {
-			color: green !important;
-			text-decoration: none;
-			}
-			.spec:hover {
-				text-decoration: underline;
-			}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -116,17 +52,8 @@
 <h3>Object.defineProperty ( O, P, Attributes )</h3>
 <div class="txt">
 	<p>Object에 프로퍼티를 추가하거나 프로퍼티 속성 변경</p>
-	<p>The <b>defineProperty</b> function is used to add an own property and/or update the attributes of an existing own
-	        property of an object. When the <b>defineProperty</b> function is called, the following steps are taken:</p>
-	<ol class="proc">
-		<li>If Type(<i>O</i>) is not Object throw a <b>TypeError</b> exception.</li>
-		<li>Let <i>name</i> be ToString (<i>P</i>).</li>
-		<li>Let <i>desc</i> be the result of calling ToPropertyDescriptor with <i>Attributes</i> as
-		  the argument.</li>
-		<li>Call the [[DefineOwnProperty]] internal method of <i>O</i> with arguments <i>name</i>, <i>desc</i>, and
-		  <b>true</b>.</li>
-		<li>Return <i>O</i>.</li>
-	</ol>
+	<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.6" class="spec">Specification</a>, 
+	<a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" class="spec">MDN</a>
 </div>
 <code class="code">
 	<pre>
@@ -405,14 +332,43 @@ configurable:false
 	<div class="txt"> Object.getOwnPropertyDescriptor()는 특정 객체의 옵션 객체를 추출한다. </div>
 </div>
 
-
-
-<h2>참조</h2>
+<h2>참고 자료</h2>
 <ul class='lst-df'>
 	<li><a href="https://opentutorials.org/course/787/5111" target="_blank">Opentutorials</a></li>
 	<li>세미나 개인 자료</li>
 </ul>
 
+<h2>In Edition 5</h2>
+<div class="txt">
+	15: In Edition 5, the following new properties are defined on built-in objects that exist in Edition 3: <br>
+	Object.getPrototypeOf,  <br>
+	Object.getOwnPropertyDescriptor,  <br>
+	Object.getOwnPropertyNames,  <br>
+	Object.create,  <br>
+	Object.defineProperty,  <br>
+	Object.defineProperties,  <br>
+	Object.seal,  <br>
+	Object.freeze,  <br>
+	Object.preventExtensions,  <br>
+	Object.isSealed,  <br>
+	Object.isFrozen,  <br>
+	Object.isExtensible,  <br>
+	Object.keys, <br>
+	Function.prototype.bind, <br>
+	Array.prototype.indexOf,  <br>
+	Array.prototype.lastIndexOf,  <br>
+	Array.prototype.every,  <br>
+	Array.prototype.some,  <br>
+	Array.prototype.forEach,  <br>
+	Array.prototype.map,  <br>
+	Array.prototype.filter,  <br>
+	Array.prototype.reduce,  <br>
+	Array.prototype.reduceRight, <br>
+	String.prototype.trim, <br>
+	Date.now,  <br>
+	Date.prototype.toISOString,  <br>
+	Date.prototype.toJSON.
+</div>
 
 
 

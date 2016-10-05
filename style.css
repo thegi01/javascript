@@ -1,0 +1,64 @@
+@charset "UTF-8";
+body {
+	margin: 30px;
+	line-height: 1.7;
+	font-family:NanumGothic,sans-serif; font-size: 14px; color:#333;
+}
+h2 {
+	margin-top: 50px;
+	border-bottom: dashed 1px #ccc;
+}
+div, ul, ol {
+	color: #666;
+}
+ul, dl {
+	margin:0; padding:0;
+}
+ul {
+	list-style: none;
+}
+.lst-df li{
+	line-height: 1.8;
+	}
+	.lst-df li:before {
+		content: '-';
+		display: inline-block;
+		margin-right: 5px;
+	}
+.lst-df a {
+		color: #666;
+		text-decoration: none;
+	}
+	.lst-df a:hover {
+		text-decoration: underline;
+	}
+
+.txt {
+	margin-top:10px; margin-bottom: 10px;
+}
+.code {
+	display: block;
+	background-color: #f8f8f8;
+	border:solid 1px #eee; 
+	border-top-left-radius: 4px;border-top-right-radius: 4px;
+	font-size:12px;
+	}
+	.code pre {
+		margin: 15px 20px 0;
+		text-align:left;
+	}
+	.lst-df + .code {
+		margin-top: 10px;
+	}
+.code-desc {
+	padding: 10px 20px;
+	border:solid 1px #eee; border-top: none;
+	border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;
+}
+.spec {
+	color: green !important;
+	text-decoration: none;
+	}
+	.spec:hover {
+		text-decoration: underline;
+	}
