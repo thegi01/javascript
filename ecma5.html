@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>ECMAScript5</title>
+	<style>
+		body {
+			margin: 30px;
+			line-height: 1.7;
+			font-family:NanumGothic,sans-serif; font-size: 14px; color:#333;
+		}
+		h2 {
+			margin-top: 50px;
+			border-bottom: dashed 1px #ccc;
+		}
+		div, ul, ol {
+			color: #666;
+		}
+		ul, dl {
+			margin:0; padding:0;
+		}
+		ul, ol {
+			list-style: none;
+		}
+		.lst-df li{
+			line-height: 1.8;
+			}
+			.lst-df li:before {
+				content: '-';
+				display: inline-block;
+				margin-right: 5px;
+			}
+		.lst-df a {
+				color: #666;
+				text-decoration: none;
+			}
+			.lst-df a:hover {
+				text-decoration: underline;
+			}
+
+		.txt {
+			margin-top:10px; margin-bottom: 10px;
+		}
+		.code {
+			display: block;
+			background-color: #f8f8f8;
+			border:solid 1px #eee; 
+			border-top-left-radius: 4px;border-top-right-radius: 4px;
+			font-size:12px;
+			}
+			.code pre {
+				margin: 15px 20px 0;
+				text-align:left;
+			}
+			.lst-df + .code {
+				margin-top: 10px;
+			}
+		.code-desc {
+			padding: 10px 20px;
+			border:solid 1px #eee; border-top: none;
+			border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+
+<h1>ECMAScript5</h1>
+<div class="txt">
+	2011년 6월 <br>
+	ECMA스크립트 표준의 제 5.1판은 ISO/IEC 16262:2011 국제 표준 제3판과 함께 한다.
+</div>
+<div class="txt">
+	HTML5와 함께 출연한 자바스크립트 표준안을 ECMAScript5 라고 부른다. <br>
+	ECMAScript5는 기존의 자바스크립트에서 특히 객체 관련 부분을 많이 보완했다. <br>
+	인터넷 익스플로어 9이상이나 그 외 브라우저에서 작동한다.
+</div>
+<ul class="lst-df">
+	<li>
+		<strong>spec : </strong><a href="http://www.ecma-international.org/ecma-262/5.1" target="_blank">http://www.ecma-international.org/ecma-262/5.1</a>
+	</li>
+	<li>
+		<strong>표준 ECMA-262 ECMA스크립트 언어 규격 5.1판 (2011년 6월) : </strong><a href="http://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262%205th%20edition%20December%202009.pdf" target="_blank">PDF</a>
+	</li>
+	<li>
+		<strong>표준 ECMA-262 ECMA스크립트 언어 규격 6판 (2015년 6월) : </strong><a href="http://wayback.archive.org/web/20111103184035/http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262%20edition%205.1,%20June%202011.pdf" target="_blank">PDF</a>
+	</li>
+</ul>
+
+<h2>ES5 Object 오브젝트</h2>
+<ul class="lst-df">
+	<li>추가된 것은 모두 함수이며 메소드는 없음</li>
+	<li>따라서 new 연산자로 생성한 인스턴스에 할당되지 않으므로</li>
+	<li>함수에 값을 파라미터로 넘겨주어 처리</li>
+</ul>
+<h3>인스턴스 생성 목적</h3>
+<ul class="lst-df">
+	<li>프로퍼티 이름은 같지만 인스턴스마다 다른 값을 가지려는 것</li>
+	<li>Object의 prototype에 연결된 메소드는 모든 빌트인 오브젝트에 상속</li>
+	<li>그런데 상속할 필요가 없다면 함수가 효율적</li>
+	<li>Object 오브젝트에 추가된 함수는 이런 목적을 가진 함수</li>
+</ul>
+
+<h2>객체 속성 추가</h2>
+<ul class="lst-df">
+	<li> <strong>Object.defineProperty( 객체명, 속성명, {옵션} ) : </strong> 객체에 속성을 하나 추가 </li>
+	<li> <strong>Object.defineProperties( 객체명, {속성명 : {옵션}} ) : </strong> 객체에 속성을 여러 개 추가 </li>
+</ul>
+
+<h3>Object.defineProperty()</h3>
+<div class="txt">
+	Object에 프로퍼티를 추가하거나 프로퍼티 속성 변경
+</div>
+<code class="code">
+	<pre>
+var obj = {};
+Object.defineProperty(obj, 'name', {
+	value : 'ECMAScript',
+	writable : false,
+	configarable : false,
+	enumerable : true
+});
+for(var name in obj){
+	console.log(name);
+};
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt">
+		위의 코드는 obj 객체에 name이라는 속성을 만들고 그 값을 ECMAScript로 설정한다. <br>
+		Object.defineProperty()의 세 번째 인자에 옵션을 줄 수 있는데 각 옵션은 아래와 같다.
+	</div>
+	<ul class="lst-df">
+		<li><strong>value : </strong> 속성값</li>
+		<li><strong>writable : </strong> 속성값을 변경할 수 있는지의 여부(true/false)</li>
+		<li><strong>configurable : </strong> 속성의 옵션값을 변경할 수 있는지의 여부(true/false)</li>
+		<li><strong>enumerable : </strong> for in 반복문으로 검사할 수 있는지의 여부(true/false)</li>
+		<li><strong>get : </strong> 게터 함수. value 옵션과 함께 사용할 수 없습니다.</li>
+		<li><strong>set : </strong> 세터 함수. value 옵션과 함께 사용할 수 없습니다.</li>
+		<li>위의 모든 옵션의 기본 값은 false 또는 undefined입니다.</li>
+	</ul>
+	<div class="txt">
+		<strong>writable</strong>이 true이면 obj.name = 'aaa'; 와 같은 값을 변경하는 코드를 사용할 수 있다. <br>
+		<strong>configurabl</strong>이 true이면 Object.defineProperty(obj, 'name', {wirtable:true}); 와 같이 사용하여 옵션 값을 변경할 수 있다. <br>
+		<strong>enumerable</strong>이 true이면 for in 반복문을 사용하여 name 속성을 출력할 수 있다.
+	</div>
+</div>
+<h4>get, set 옵션</h4>
+<code class="code">
+	<pre>
+var obj = {};
+Object.defineProperty(obj, 'name', {
+	// value 옵션을 함께 사용할 수 없다.
+	get : function(){
+		return value;
+	},
+	set : function(newValue){
+		value = newValue;
+	}
+});
+obj.name = 'ECMAScript'; 	// set 호출
+console.log(obj.name);		// get 호출		
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt">
+		get, set 옵션은 value 옵션과 함께 사용할 수 없다. <br>
+		위처럼 get과 set을 통해 게터와 세터를 만들어주고 obj.name과 같이 속성 값에 접근하면 자동적으로 세터와 게터 함수를 통해 조작된다.
+		실제로 get함수에 alert을 뛰우는 코드를 삽입하면 obj.name="ECMAScript" 부분에서 실제로 alert창이 띄워진다.
+	</div>
+</div>
+
+<h3>Object.defineProperties()</h3>
+<code class="code">
+	<pre>
+var obj = {};
+Object.defineProperties(obj, {
+	name : {
+		value : 'ECMAScript'
+	},
+	type : {
+		value : 'Programming Language'
+	}
+});
+console.log(obj.name);
+console.log(obj.type);
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt">
+		Object.defineProperties()는 객체의 속성을 여러 개 지정할 수 있다. <br>
+		Object.defineProperty와 개수만 다를 뿐 사용방법은 비슷하다. <br>
+		위의 코드는 객체 obj에 속성 name과 type을 지정한 예이다.
+	</div>
+</div>
+
+
+<h2>객체 생성(상속)</h2>
+<h3>Object.create()</h3>
+<div class="txt">
+	Object.create( 객체명, {속성명:{옵션}} ) : 첫 번째 매개 변수로 받은 객체에 두 번째 매개 변수로 받은 속성을 추가하여 새로운 객체를 리턴한다. <br>
+	이 때 두 번째 매개변수는 Object.defineProperties와 같은 문법이다.
+</div>
+<code class="code">
+	<pre>
+// 첫 번째 매개변수에 빈 객체를 전달함으로써, 
+// 완전히 새로운 객체를 만드는 효과를 볼 수 있다.
+var people = Object.create({}, {
+	name : { value : 'Kim', enumerable : true }
+});
+// people을 기반으로 새로운 객체를 생성한다.(상속)
+var man = Object.create(people, {
+	gender : { value : 'Male', enumerable : true }
+});
+console.log(man.name);		// Kim
+console.log(man.gender);	// Male		
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt">
+		Object.create() 메소드를 사용하면 기존의 객체를 기반으로 새로운 속성을 지정할 수 있으므로 상속이라고 볼 수 있다. <br>
+		즉 name은 people을 상속해서 만들었다고 볼 수 있다.
+	</div>
+</div>
+
+
+
+<h2>동적 속성 추가 제한</h2>
+<div class="txt">
+	기존 자바스크립트의 모든 객체는 동적으로 속성 또는 메소드를 추가하거나 삭제할 수 있다. <br>
+	하지만 ECMAScript5부터는 동적으로 속성을 추가하는 것을 제한할 수 있다.
+</div>
+<code class="code">
+	<pre>
+var obj = {};
+// 간단한 객체 속성 추가
+obj.gender = 'Male';
+// 복잡한 객체 속성 추가
+Object.defineProperty(obj, 'name', {
+	value : 'Kim'
+});
+if( Object.isExtensible(obj) ){		// true
+	Object.preventExtensions(obj);	// 객체 속성 추가 제한(true -> false)
+};
+console.log(Object.isExtensible(obj))	// false
+
+// 객체 속성 추가 제한 후 객체 속성 추가
+obj.region = 'Seoul';
+console.log(obj.region);		// undefined(속성 추가 제한됨)		
+	</pre>
+</code>
+<div class="code-desc">
+	<ul class="lst-df">
+		<li><strong>Object.preventExtensions(객체명) : </strong> 객체의 속성 추가를 제한한다.</li>
+		<li><strong>Object.isExtensible(객체명) : </strong> 객체의 속성 추가가 가능한지 확인한다. (true/false)</li>
+	</ul>
+</div>
+
+
+<h2>동적 속성 삭제 제한</h2>
+<code class="code">
+	<pre>
+var person = {
+	name : 'Kim',
+	gender : 'Male'
+};
+if(!Object.isSealed(person)){	// !false -> true
+	Object.seal(person);	// 동적 속성 삭제 제한
+};
+console.log(Object.isSealed(person)) 	// true
+// 동적 속성 삭제 제한 후 속성 삭제
+delete person.gender;
+console.log(person.gender);		// Male 정상 출력		
+	</pre>
+</code>
+<div class="code-desc">
+	<ul class="lst-df">
+		<li><strong>Object.seal(객체명) : </strong> 객체의 속성 자체를 제한한다.</li>
+		<li><strong>Object.isSealed(객체명) : </strong> 객체의 속성 삭제가 가능한지 확인한다. (true/false)</li>
+	</ul>
+</div>
+
+<h2>동적 속성 수정 및 삭제 제한</h2>
+<ul class="lst-df">
+	<li><strong>Object.freeze(객체명) : </strong>객체의 속성 수정 및 삭제를 제한합니다.</li>
+	<li><strong>Object.isFrozen(객체명) : </strong>객체의 속성 수정 및 삭제가 가능한지 확인한다. (true/false)</li>
+</ul>
+
+<h2>객체 보조 메소드</h2>
+<ul class="lst-df">
+	<li> <storng>Object.keys(객체명) : </storng> 객체의 반복 순환 가능한 속성명으로 배열을 만든다. (enumerable : true인 것) </li>
+	<li> <storng>Object.getOwnPropertyNames(객체명) : </storng> 객체의 모든 속성명으로 배열을 만듭니다. </li>
+	<li> <storng>Object.getOwnPropertyDescriptor(객체명, 속성명) : </storng> 특정 속성의 옵션 객체를 추출합니다. </li>
+</ul>
+<code class="code">
+	<pre>
+var obj = {};
+Object.defineProperties(obj, {
+	name : {
+		value :  'Kim',
+		enumerable : true
+	},
+	gender : {
+		value : 'Male',
+		// enumerable : false 기본값
+	}
+});
+obj.region = 'Seoul'	// 기존 자바스크립트의 방식은 반복 순환 가능한 형태임
+console.log(Object.keys(obj));		     // name, region
+console.log(Object.getOwnPropertyNames(obj)) // name, gender, region
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt">
+		메소드 Object.keys()와 Object.getOwnPropertyNames()는 서로 비슷하지만 Object.keys() 메소드는 enumerable이 false인 것을 가져오지 못한다는 차이점이 있다. <br>
+		따라서 위의 gender가 출력되지 않았던 것이다.
+	</div>
+</div>
+<h3>Object.getOwnPropertyDescriptor()</h3>
+<code class="code">
+	<pre>
+var obj = { name : 'Kim' };
+Object.defineProperty(obj, 'gender', { value : 'Male'} );
+// name 속성은 writable, enumerable, configurable이 기본적으로 true
+// gender 속성은 writable, enumerable, configurable이 기본적으로 false
+var descriptors = [];
+descriptors.push(Object.getOwnPropertyDescriptor(obj, 'name'));
+descriptors.push(Object.getOwnPropertyDescriptor(obj, 'gender'));
+// descriptors[0] : name 속성의 옵션 객체
+// descriptors[0] : gender 속성의 옵션 객체
+
+var output = '';
+for(var i in descriptors){
+	var item = descriptors[i];
+	for(var key in item){
+		output += key + ':' + item[key] + '\n';
+	}
+	output += '\n';
+}
+console.log(output);
+/* 출력결과 
+value:Kim
+writable:true
+enumerable:true
+configurable:true
+
+value:Male
+writable:false
+enumerable:false
+configurable:false
+*/		
+	</pre>
+</code>
+<div class="code-desc">
+	<div class="txt"> Object.getOwnPropertyDescriptor()는 특정 객체의 옵션 객체를 추출한다. </div>
+</div>
+
+
+
+<h2>참조</h2>
+<ul class='lst-df'>
+	<li><a href="https://opentutorials.org/course/787/5111" target="_blank">Opentutorials</a></li>
+	<li>세마나 개인 자료</li>
+</ul>
+
+
+
+
+
+
+<script>
+/* Object.defineProperty */
+var obj = {};
+Object.defineProperty(obj, 'name', {
+	value : 'ECMAScript',
+	writable : false,
+	configarable : false,
+	enumerable : true
+});
+for(var name in obj){
+	console.log(name);
+};
+
+/* Object.defineProperty > get, set */
+var obj = {};
+Object.defineProperty(obj, 'name', {
+	// value 옵션을 함께 사용할 수 없다.
+	get : function(){
+		return value;
+	},
+	set : function(newValue){
+		value = newValue;
+	}
+});
+obj.name = 'ECMAScript'; 	// set 호출
+console.log(obj.name);		// get 호출
+
+/* Object.defineProperties */
+var obj = {};
+Object.defineProperties(obj, {
+	name : {
+		value : 'ECMAScript'
+	},
+	type : {
+		value : 'Programming Language'
+	}
+});
+console.log(obj.name);
+console.log(obj.type);
+
+/* Object.create() */
+// 첫 번째 매개변수에 빈 객체를 전달함으로써, 
+// 완전히 새로운 객체를 만드는 효과를 볼 수 있다.
+var people = Object.create({}, {
+	name : { value : 'Kim', enumerable : true }
+});
+// people을 기반으로 새로운 객체를 생성한다.(상속)
+var man = Object.create(people, {
+	gender : { value : 'Male', enumerable : true }
+});
+console.log(man.name);		// Kim
+console.log(man.gender);	// Male
+
+
+/* 동적 속성 추가 제한 */
+var obj = {};
+// 간단한 객체 속성 추가
+obj.gender = 'Male';
+// 복잡한 객체 속성 추가
+Object.defineProperty(obj, 'name', {
+	value : 'Kim'
+});
+if( Object.isExtensible(obj) ){			// true
+	Object.preventExtensions(obj);		// 객체 속성 추가 제한(true -> false)
+};
+console.log(Object.isExtensible(obj))	// false
+
+// 객체 속성 추가 제한 후 객체 속성 추가
+obj.region = 'Seoul';
+console.log(obj.region);				// undefined(속성 추가 제한됨)
+
+
+/* 독적 속성 삭제 제한 */
+var person = {
+	name : 'Kim',
+	gender : 'Male'
+};
+if(!Object.isSealed(person)){			// !false -> true
+	Object.seal(person);				// 동적 속성 삭제 제한
+};
+console.log(Object.isSealed(person))	// true
+// 동적 속성 삭제 제한 후 속성 삭제
+delete person.gender;
+console.log(person.gender);				// Male 정상 출력
+
+
+/* 객체 보조 메소드 */
+var obj = {};
+Object.defineProperties(obj, {
+	name : {
+		value :  'Kim',
+		enumerable : true
+	},
+	gender : {
+		value : 'Male',
+		// enumerable : false 기본값
+	}
+});
+obj.region = 'Seoul'	// 기존 자바스크립트의 방식은 반복 순환 가능한 형태임
+console.log(Object.keys(obj));					// name, region
+console.log(Object.getOwnPropertyNames(obj))	// name, gender, region
+
+
+/* Object.getOwnPropertyDescriptor */
+var obj = { name : 'Kim' };
+Object.defineProperty(obj, 'gender', { value : 'Male'} );
+// name 속성은 writable, enumerable, configurable이 기본적으로 true
+// gender 속성은 writable, enumerable, configurable이 기본적으로 false
+var descriptors = [];
+descriptors.push(Object.getOwnPropertyDescriptor(obj, 'name'));
+descriptors.push(Object.getOwnPropertyDescriptor(obj, 'gender'));
+// descriptors[0] : name 속성의 옵션 객체
+// descriptors[0] : gender 속성의 옵션 객체
+
+var output = '';
+for(var i in descriptors){
+	var item = descriptors[i];
+	for(var key in item){
+		output += key + ':' + item[key] + '\n';
+	}
+	output += '\n';
+}
+console.log(output);
+/* 출력결과 
+value:Kim
+writable:true
+enumerable:true
+configurable:true
+
+value:Male
+writable:false
+enumerable:false
+configurable:false
+*/
+
+
+</script>
+
+</body>
+</html>
