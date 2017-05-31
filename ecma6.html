@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>ECMAScript6</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-es6">
+
+	<header>
+		<h1>ECMAScript 6</h1>
+		<p> — New Features: Overview &amp; Comparison
+        </p>
+	</header>
+
+	<div id="menu-toggle" class="menu-toggle">☰</div>
+
+	<nav id="menu" class="menu">
+		<ul>
+			<li>
+				Contants
+				<ul>
+					<li>
+						<a href="#constants">Constants</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				Scoping
+				<ul>
+					<li>
+						<a href="#blockScopedVariables">Block-Scoped Variables</a>
+						<a href="#blockScopedFunctions">Block-Scoped Functions</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+
+	<main class="content">
+		<h2>Constants</h2>
+		<section id="constant" class="showcase constant">
+			<h3>Constants</h3>
+			<div class="description"> 
+			</div>
+
+			<div class="ex ex6">
+				<h5>ECMASCript6</h5>
+				<code class="code">
+<pre>
+const PI = 3.141593;
+PI > 3.0;
+</pre>
+				</code>
+				<script>
+					const PI = 3.141593;
+					console.log('PI > 3 :', PI > 3);
+				</script>
+			</div>
+
+			<div class="ex ex5">
+				<h5>ECMASCript5</h5>
+				<code class="code">
+<pre>
+Object.defineProperty(typeof global === 'object' ? global : window, "PI", {
+	value : 3.141593,
+	enumerable : true,
+	writable : false,
+	configurable : false
+});
+PI > 3.0;
+</pre>
+				</code>
+				<script>
+					Object.defineProperty(typeof global === 'object' ? global : window, "PI", {
+						value : 3.141593,
+						enumerable : true,
+						writable : false,
+						configurable : false
+					});
+					console.log('PI > 3 :', PI > 3);
+				</script>
+			</div>
+
+		</section>
+	
+		<h2>Scoped</h2>
+		<section id="blockScopedVariables">
+			<h3>blockScopedVariables</h3>
+		</section>
+
+		<seciton id="blockScopedFunctions">
+			<h3>blockScopedFunctions</h3>
+		</seciton>
+		
+
+
+
+
+	</main>
+
+
+
+
+</body>
+</html>

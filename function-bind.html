@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Fucntion.prototype.bind()</title>
+</head>
+<body>
+
+
+<script>
+
+	/* Fucntion.prototype.bind */
+	console.log('Funciton.prototype.bind()');
+
+
+
+
+	console.log('');
+
+
+
+
+	/* 1. 바인딩된 함수 생성 */
+	console.log('1. 바인딩된 함수 생성');
+	this.x = 9;
+	var module = {
+		x : 81,
+		getX : function(){
+			return this.x;
+		}
+	};
+
+	console.log( 'module.getX()', module.getX() ); // 81
+
+	var retrieveX = module.getX;
+	console.log( 'retrieveX()', retrieveX() );  // 9
+
+	var boundGetX = retrieveX.bind(module);
+	console.log( 'boundGetX()', boundGetX() ); // 81
+
+
+
+
+	console.log('');
+
+
+
+
+	/* 2. 부분 적용 함수 */
+	console.log('2. 부분 적용 함수');
+	function list(){
+		return Array.prototype.slice.call(arguments);
+	}
+
+	var list1 = list(1, 2, 3);
+	console.log( 'list1', list1 );
+
+	// 미리 설정된 선행 인수가 있는 함수 생성
+	var leadingThirtysevenList = list.bind(undefined, 37);
+
+	var list2 = leadingThirtysevenList();
+	console.log( 'list2', list2 ); // [37]
+
+	var list3 = leadingThirtysevenList(1, 2, 3);
+	console.log( 'list3', list3 ); // [37, 1, 2, 3]
+
+
+
+
+	console.log('');
+
+
+
+
+	/* 3. setTimeout과 함께 사용 */
+	console.log('3. setTimeout과 함께 사용');
+
+	function LateBloomer(){
+		this.petalCount = Math.ceil(Math.random()*12) + 1;
+	}
+	// 1초 지체 후 bloom 선언
+	LateBloomer.prototype.bloom = function(){
+		window.setTimeout(this.declare.bind(this), 1000);
+		// window.setTimeout(this.declare , 1000);
+	};
+	LateBloomer.prototype.declare = function(){
+		// console.log(this);
+		console.log('I am a beautiful flower with ' + this.petalCount + ' petals!');
+		console.log('');
+	};
+
+	var flower = new LateBloomer;
+	flower.bloom(); // 1초 뒤 'declare' 메소드 유발
+
+	
+
+
+
+</script>
+
+</body>
+</html>

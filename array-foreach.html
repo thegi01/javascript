@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Array.prototype.forEach()</title>
+</head>
+<body>
+
+
+<script>
+	/* Array.prototype.forEach() */
+	console.log('Array.prototype.forEach()');
+
+
+
+
+
+	console.log('');
+
+
+
+
+
+	/* 배열 콘텐츠 인쇄 */
+	console.log('배열 콘텐츠 인쇄');
+	function logArrayElements(element, index, array){
+		console.log('a[' +  index + '] = ' + element);
+	}
+	[2, 5, , 9].forEach(logArrayElements);
+
+
+
+
+
+	console.log('');
+
+
+
+
+
+	/* thisArg 사용 
+	 * 배열의 각 항목에서 객체의 속성을 갱신
+	 */
+	console.log('thisArg 사용');
+	function Counter(){
+		this.sum = 0;
+		this.count = 0;
+	};
+	Counter.prototype.add = function(array){;
+		array.forEach(function(entry){
+			this.sum += entry;
+			++this.count;
+		}, this);
+	};
+
+	var obj = new Counter;
+	obj.add( [2, 5, 9] );
+	console.log('obj.count', obj.count);
+	console.log('obj.sum', obj.sum);
+
+
+
+
+
+	console.log('');
+
+
+
+
+
+	/* 객체 복사 함수 */
+	console.log('객체 복사 함수');
+	function copy(obj){
+		var copy = Object.create(Object.getPrototypeOf(obj));
+		var propNames = Object.getOwnPropertyNames(obj);
+
+		propNames.forEach(function(name){
+			var desc = Object.getOwnPropertyDescriptor(obj, name);
+			Object.defineProperty(copy, name, desc);
+		});
+		return copy;
+	}
+	var obj1 = { a : 1, b : 2};
+	var obj2 = copy(obj1);
+	console.log(obj1, obj2);
+
+
+
+
+
+	console.log('');
+
+
+
+
+	
+	/* polyfill */
+
+</script>
+
+</body>
+</html>
