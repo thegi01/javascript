@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Fucntion.prototype.call()</title>
+</head>
+<body>
+
+
+<script>
+
+	/* Fucntion.prototype.call */
+	console.log('Funciton.prototype.call()');
+	/* 이 함수 구문은 apply()와 거의 동일하지만, 
+		근본 차이는 call()은 인수목록, 
+		반면에 apply()는 인수 배열 하나를 받는다 
+		는 점입니다. 
+		파라미터가 일반적으로 정해져 있는 경우에 사용
+	*/
+
+
+
+
+	console.log('');
+
+
+
+
+	/* 1. 객체의 생성자 연결에 call 사용 */
+	console.log('1. 객체의 생성자 연결에 call 사용');
+	function Product(name, price){
+		this.name = name;
+		this.price = price;
+
+		if(price<0){
+			throw RangeError('Cannot create product' + this.name + 'with a negative price');
+		}
+	}
+	function Food(name, price){
+		Product.call(this, name, price);
+		this.category = 'food';
+	}
+	function Toy(name, price){
+		Product.call(this, name, price);
+		this.category = 'toy';
+	}
+	var cheese = new Food('feta', 5);
+	var fun = new Toy('robot', 40);
+	console.log('cheese', cheese);
+	console.log('fun', fun);
+
+
+
+	console.log('');
+
+
+
+	/* 2. 익명함수 호출에 call 사용 */
+	console.log('익명함수 호출에 call 사용');
+	var animals = [
+		{ species : 'Lion', name : 'King'},
+		{ species : 'Whale', name : 'Fail'}
+	];
+	for(var i=0 ; i<animals.length ; i++){
+		(function(i){
+			this.print = function(){
+				console.log('#' + i + ' ' + this.species + ': ' + this.name);
+			}
+			this.print();
+		}).call(animals[i], i);
+	}
+
+
+
+	console.log('');
+
+
+
+	/* 3. 함수 호출 및 'this'를 위한 문맥 지정에 call 사용 */
+	console.log('함수 호출 및 "this"를 위한 문맥 지정에 call 사용');
+	function greet(){
+		var reply = [this.person, 'Is An Awesome', this.role].join(' ');
+		console.log(reply);
+	}
+	var i = {
+		person : 'Douglas Crockford',
+		role : 'Javascript Developer'
+	};
+	greet.call(i);
+
+
+
+	console.log('');
+
+
+
+	/* 4. etc */
+	function getTotal(one, two){
+		return one + two;
+	}
+	var result = getTotal.call(this, 10, 20);
+	console.log( 'getTotal', result );
+
+
+
+
+	
+	
+
+
+
+
+</script>
+
+</body>
+</html>
