@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Array</title>
+</head>
+<body>
+
+	<h1>Array</h1>
+
+
+<script>
+	
+	/* 1. Create an Array */
+	console.log( '1. Create an Array' );
+	var fruits = ["Apple", "Banana"];
+	console.log(fruits.length) //2
+
+
+	/* 2. Access(index info) an Array item */
+	console.log( '2. Access(index info) an Array item');
+	var first = fruits[0];
+	// Apple
+	var last = fruits[fruits.length-1];
+	// Banana
+
+	/* 3. Loop over an Array */
+	console.log( '3. Loop over an Array');
+	fruits.forEach(function(item, index, array){
+		console.log( item, index );
+	})
+	// Apple 0
+	// Banana 1
+
+	/* 4. Add to the end of an Array */
+	console.log('4. Add to the end of an Array');
+	var newLength = fruits.push('Orange'); // 3
+	// ["Apple", "Banana", "Orange"]
+
+	/* 5. Remove from the end of an Array */
+	console.log('5. Remove from the end of an Array');
+	var last = fruits.pop(); // Reonmve 'Orange' form the end, 'Orange'
+	// ["Apple", "Banana"]
+
+	/* 6. Remove from the front of an Array */
+	console.log('6. Remove from the front of an Array');
+	var first = fruits.shift(); // Remove Apple from the front, "Apple"
+	// ["Banana"]
+
+	/* 7. Add to the front of an Array */
+	console.log('7. Add to the front of an Array');
+	var newLength = fruits.unshift('Strawberry'); // 2
+	// ["Strawberry", "Banana"]
+
+	/* 8. Find the index of an item in the Array */
+	console.log('8. Find the index of an item in the Array');
+	fruits.push('Mango'); 
+	// ["Strawberry", "Banana", "Mango"]
+	var pos = fruits.indexOf('Banana'); 
+	// 1
+
+	/* 9. Remove an item by index position */
+	console.log('9. Remove an item by index position');
+	var removedItem = fruits.splice(pos, 1); // this is how to remove an item, // 'Banana'
+	// ["Strawberry", "Mango"]
+
+	/* 10. Remove items from an index position */
+	console.log('10. Remove items from an index position');
+	var vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot'];
+	var pos = 1, n = 2;
+	var removedItems = vegetables.splice(pos, n);
+	console.log(vegetables);
+	// ["Cabbage", "Carrot"] (the original array is changed)
+	console.log(removedItems);
+	// ["Turnip", "Radish"]
+
+	/* 11. Copy an Array */
+	console.log('11. Copy an Array');
+	var shallowCopy = fruits.slice(); // this is how to make a copy
+
+	
+</script>
+
+</body>
+</html>
