@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Array.prototype.splice()</title>
+</head>
+<body>
+
+<h1></h1>
+<h1>Array.prototype.splice (start, deleteCount, ...items)</h1>
+
+<div>
+	arr.splice(start) <br>
+	arr.splice(start, deleteCount) <br>
+	arr.splice(start, deleteCount, item1, item2)
+</div>
+
+<br>
+
+<div>
+	배열에서 엘리먼트 삭제하고 새로운 엘레먼트 삽입, 삭제한 엘리먼트 반환 <br>
+	When the splice method is called with two or more arguments start, deleteCount and zero or more items, <br>
+	the deleteCount elements of the array starting at integer index start are replaced by the arguments items. <br>
+	An Array object containing the deleted elements (if any) is returned.
+</div>
+
+<script>
+	/* Array.prototype.splice() */
+	console.log('Array.prototype.splice()');
+
+	/* Remove 0 elements from index 2, and insert "drum" */
+	var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+	var removed = myFish.splice(2, 0, 'drum');
+	console.log('myFish', myFish); // ["angel", "clown", "drum", "mandarin", "sturgeon"]
+	console.log('removed', removed); // []
+
+	/* Remove 1 element from index 3 */
+	var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
+	var removed = myFish.splice(3, 1);
+	console.log('myFish', myFish); // ["angel", "clown", "drum", "sturgeon"]
+	console.log('removed', removed); // ["mandarin"]
+
+	/* Remove 1 element from index 2, and insert "trumpet" */
+	var myFish = ['angel', 'clown', 'trumpet', 'sturgeon'];
+	var removed = myFish.splice(0, 2, 'parrot', 'anemone', 'blue');
+	console.log('myFish', myFish); // ["parrot", "anemone", "blue", "trumpet", "sturgeon"]
+	console.log('removed', removed); // ["angel", "clown"]
+
+	/* Remove 2 elements from index 2 */
+	var myFish = ['parrot', 'anemone', 'blue', 'trumpet', 'sturgeon'];
+	var removed = myFish.splice(myFish.length-3, 2);
+	console.log('myFish', myFish); // ["parrot", "anemone", "sturgeon"]
+	console.log('removed', removed); // ["blue", "trumpet"]
+
+	/* Remove 1 element from index -2 */
+	var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+	var removed = myFish.splice(-2, 1);
+	console.log('myFish', myFish); // ["angel", "clown", "sturgeon"
+	console.log('removed', removed); // ["mandarin"]
+
+	/* Remove all elements after index 2 (incl.) */
+	var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+	var removed = myFish.splice(2);
+	console.log('myFish', myFish); // ["angel", "clown"]
+	console.log('removed', removed); // ["mandarin", "sturgeon"]
+
+</script>
+
+</body>
+</html>
