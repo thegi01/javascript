@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>string.prototype.split()</title>
+</head>
+<body>
+
+<h1>string.prototype.split (separator, limit)</h1>
+
+<div>
+    Returns an Array object into which substrings of the result of converting this object to a String have been stored. <br>
+    The substrings are determined by searching from left to right for occurrences of separator; <br>
+    these occurrences are not part of any substring in the returned array,<br>
+    but serve to divide up the String value.<br>
+    The value of separator may be a Stirng of any length or it may be an object, such as a RegExp, that has a @@split method. <br>
+    문자열을 구분자로 분리하여 배열로 반환
+</div>
+
+<br>
+
+<div>
+</div>
+
+<script>
+
+    /* Basic example */
+    console.log('Basic example');
+    var value = '_012_345';
+
+    console.log(value.split('_'));
+    console.log(value.split('_', 2));
+    console.log(value.split('AA'));
+    console.log(value.split());
+    console.log(value.split(''));
+
+    console.log('');
+
+    /* Using split() */
+    console.log('Using split()');
+    function splitString(stringToSplit, separator){
+        var arrayOfStrings = stringToSplit.split(separator);
+        console.log('The original string is : "' + stringToSplit + '"');
+        console.log('The separator is : "' + separator + '"');
+        console.log('arrayOfStrings', arrayOfStrings);
+    }
+
+    var tempestString = 'Oh brave new world that has such people in it.';
+    var space = ' ';
+    splitString(tempestString, space);
+    splitString(tempestString);
+
+    var monthString = 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec';
+    var comma = ',';
+    splitString(monthString, comma);
+
+    console.log('');
+
+    /* Removing spaces from a string */
+    console.log('Removing spaces from a string');
+    var names = 'Harry Trump ;Fred Barney; Helen Rigby ; Bill Abel ;Chris Hand ';
+    console.log(names);
+
+    var re = /\s*;\s*/;
+    var nameList = names.split(re);
+    console.log(nameList); // ["Harry Trump", "Fred Barney", "Helen Rigby", "Bill Abel", "Chris Hand "]
+
+    console.log('');
+
+    /* Returning a limited number of splits */
+    var myString = 'Hello World. How are you doing?';
+    var splits = myString.split(' ', 3);
+    console.log(splits); // ["Hello", "World.", "How"]
+
+    console.log('');
+
+    /* Capturing parentheses */
+    var myString = 'Hello 1 word. Sentence number 2.';
+    var splits = myString.split(/(\d)/);
+    console.log(splits);
+
+    console.log('');
+
+    /* Reversing a String using split() */
+    var str = 'asdfghjkl';
+    var strReverse = str.split('').reverse().join(''); // 'lkjhgfdsa'
+    console.log(strReverse);
+
+</script>
+
+</body>
+</html>
