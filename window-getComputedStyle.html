@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>window.getComputedStyle</title>
+</head>
+<body>
+	
+	<h1>window.getComputedStyle(element, [, pseudoElt])</h1>
+
+	<section>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>element</dt>
+			<dd> The element whose style is to be computed. This parameter cannot be null. </dd>
+			<dt>pseudoElt</dt>
+			<dd> The pseudo-element or null if none.</dd>
+		</dl>
+		<h2>Return value</h2>
+		<div>
+			<p>CSSStyleDeclaration</p>
+			<p>The computed style. The CSSStyleDeclaration is read-only and contains only absolute values.</p>
+			<p>CSSStyleDeclaration : Represents a collection of CSS property-value pairs</p>
+		</div>
+	</section>
+
+	<section>
+		<h2>Examples</h2>
+		
+		<h3>Demo1</h3>
+		<div class="demo">
+			<style>
+			 #elem-container{
+			 	padding: 20px;
+			   	height:   30px;
+			   	border: 1px solid #ccc;
+			 }
+			 #output {
+			 	padding: 20px;
+			 	background-color: #f8f8f8;
+			 }
+			</style>
+			<div id="elem-container">dummy</div>
+			<div id="output"></div>
+
+			<script>
+				function getThestyle(){
+					var elem = document.getElementById('elem-container');
+					var theCSSProp = window.getComputedStyle(elem, null).getPropertyValue('height');
+					document.getElementById('output').innerHTML = theCSSProp;
+				}
+				getThestyle();
+			</script>
+		</div>
+
+		<h3>demo2</h3>
+		<div class="demo">
+			<style>
+				#box {
+					width: 100px; height: 20px;
+					padding: 20px;
+					border: 1px solid #ddd;
+					background-color: #f8f8f8;
+				}
+				#output2 {
+					margin: 10px;
+					padding: 20px;
+				}
+			</style>
+			<div id="box"> demo2 div </div>
+			<div id="output2"> </div>
+
+			<script>
+				function dumpComputedStyles(elem, prop){
+					var cs = window.getComputedStyle(elem, null);
+					if(prop) {
+						// console.log(prop + " : " + cs.getPropertyValue(prop));
+						document.getElementById('output2').innerHTML = prop + ' : ' + cs.getPropertyValue(prop);
+						return;
+					}
+					var len = cs.length;
+					for( var i=0 ; i<len ; i++){
+						var style = cs[i];
+						console.log( style + " : " + cs.getPropertyValue(style) )
+					}
+				}
+				dumpComputedStyles(document.getElementById('box'), 'width');
+			</script>
+		</div>
+
+		<h3>defaultViewEDIT</h3>
+		
+	</section>
+
+
+<script>
+
+	
+
+
+
+
+</script>
+
+</body>
+</html>
