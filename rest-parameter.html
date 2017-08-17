@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +35,24 @@
             return sortedArgs; // 이는 결코 일어나지 않음
         }
         // TypeError 발생 : arguments.sort는 함수가 아님
-        console.log(sortArguments(5, 3, 7, 1));
+        // console.log(sortArguments(5, 3, 7, 1));
+
+
+        /* arguments 객체를 거쳐 인자를 사용하는 예제 */
+        console.log('arguments 객체를 거쳐 인자를 사용하는 예제');
+        function myfunction(a, b){
+            var args = Array.prototype.slice.call( arguments, myfunction.length );
+            console.log( args );
+        }
+        myfunction(1, 2, 3, 4, 5) // 3, 4, 5
+
+        // rest parameter를 쓰면 간편
+        function myFunction(a, b, ...args){
+            console.log(args);  
+        }
+        myfunction(1, 2, 3, 4, 5) // 3, 4, 5
+
+
 
     </script>
 </body>
