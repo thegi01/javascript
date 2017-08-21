@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>arrow function expression</title>
+</head>
+<body>
+    <h1>arrow function expression</h1>
+    <script type="text/javascript">
+
+        /* arrow function expression */
+
+        /* this */
+        console.log('aaa');
+        var aaa = {
+            f1 : function(){
+                console.log('aaa f1 : ', this);
+                var f2 = function(){
+                    console.log('aaa f2 : ', this);
+                };
+                f2();
+                setTimeout(f2, 1000);
+            }
+        }
+        aaa.f1();
+
+        console.log('bbb');
+        var bbb = {
+            f1 : () => {
+                console.log('bbb f1 : ', this);
+                var f2 = () => {console.log('bbb f2 :', this); };
+                f2();
+                setTimeout(f2, 1000);
+            }
+        }
+        bbb.f1();
+
+
+    </script>
+</body>
+</html>
