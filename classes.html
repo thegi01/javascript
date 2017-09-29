@@ -298,6 +298,58 @@ var Rectangle = class Rectangle {
     <section>
         <h2>Super class calls with super</h2>
         <p>The super keyword is used to <span style="text-decoration: underline;">call functions on an object's parent.</span></p>
+        <code class="code">
+<pre>
+    class Cat {
+        constructor(name){
+            this.name = name;
+        }
+        speak(){
+            console.log( this.name + ' makes a noise.' );
+        }
+    }
+
+    class Lion extends Cat {
+        speak(){
+            super.speak();
+            console.log(this.name + ' roars.');
+        }
+    }
+
+    var l = new Lion('Fuzzy');
+    l.speak();
+    // Fuzzy makes a noise.
+    // Fuzzy roars.
+</pre>
+        </code>
+    </section>
+
+    <section>
+        <h2>Mix-ins ??????</h2>
+        <p>
+            Abstract subclasses or mix-ins are templates for classes. An ECMAScript class can only have a single superclass, so multiple inheritance from tooling classes, for example, is not possible. The functionality must be provided by the superclass. <br>
+
+            A function with a superclass as input and a subclass extending that superclass as output can be used to implement mix-ins in ECMAScript:
+        </p>
+        <code class="code">
+<pre>
+    var calculatorMixin = Base => class extends Base {
+      calc() { }
+    };
+
+    var randomizerMixin = Base => class extends Base {
+      randomize() { }
+    };
+</pre>
+        </code>
+        <p>A class that uses these mix-ins can then be written like this:</p>
+        <code class="code">
+<pre>
+    class Foo { }
+    class Bar extends calculatorMixin(randomizerMixin(Foo)) { }
+</pre>
+        </code>
+
     </section>
     
     <script type="text/javascript">
@@ -458,6 +510,7 @@ var Rectangle = class Rectangle {
 
 
         // Classes > Super class calls with super
+        /*
         class Cat {
             constructor(name){
                 this.name = name;
@@ -469,32 +522,31 @@ var Rectangle = class Rectangle {
 
         class Lion extends Cat {
             speak(){
-                
+                super.speak();
+                console.log(this.name + ' roars.');
             }
         }
 
-
-       /* class Cat { 
-          constructor(name) {
-            this.name = name;
-          }
-          
-          speak() {
-            console.log(this.name + ' makes a noise.');
-          }
-        }
-
-        class Lion extends Cat {
-          speak() {
-            super.speak();
-            console.log(this.name + ' roars.');
-          }
-        }
-
         var l = new Lion('Fuzzy');
-        l.speak(); 
+        l.speak();
         // Fuzzy makes a noise.
-        // Fuzzy roars.*/
+        // Fuzzy roars.
+        */
+
+
+
+        // classes > Mix-ins
+        /*
+        var calculatorMixin = Base => class extends Base {
+          calc() { }
+        };
+
+        var randomizerMixin = Base => class extends Base {
+          randomize() { }
+        };
+        class Foo { }
+        class Bar extends calculatorMixin(randomizerMixin(Foo)) { }
+        */
 
     </script>
 </body>
