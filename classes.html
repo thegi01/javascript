@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Classes</title>
+    <link rel="stylesheet" href="style.css">
+       
+</head>
+<body>
+    
+    <h1>Classes</h1>
+    <p>
+        - ECMAScript 2015 <br>
+        - JavaScript의 기존 프로토 타입 기반 상속에 대한 문법적 설탕? <br>
+        - 클래스 구문은 JavaScript에 새로운 객체 지향 상속 모델을 도입하지 않는다. <br>
+        - 객체를 만들고 상속을 처리하는 훨씬 간단하고 명확한 구문을 제공
+    </p>
+
+    <section>
+        <h2>Defining Classes</h2>
+        <p>
+            - 클래스는 사실 "특수 함수"이며, <br>
+            - 함수식과 함수 선언을 정의 할 수있는 것처럼 <br>
+            - 클래스 구문에는 <span style="text-decoration: underline;">클래스 표현식</span>과 <span style="text-decoration: underline;">클래스 선언</span>의 두 가지 구성 요소가 있다.
+        </p>
+
+        <h3>Class declaration</h3>
+        <code class="code">
+<pre>
+class Rectangle {
+    constructor(width, height){
+        this.width = width;
+        this.height = height;
+    }
+}
+</pre>
+        </code>
+
+        <h4>Hoisting</h4>
+        <p>
+            함수 선언과 클래스 선언 사이의 중요한 차이점은 함수 선언이 기안되어 클래스 선언이되지 않는다. <br>
+            먼저 클래스를 선언 한 다음 액세스해야합니다. 그렇지 않으면 다음과 같이 코드가 ReferenceError를 throw 한다.</p>
+        <code class="code">
+<pre>
+var p = new Rectangle(); // ReferenceError
+
+class Rectangle {}
+</pre>
+        </code>
+
+        <h3>Class expressions</h3>
+        <code class="code">
+<pre>
+// unnamed 
+var Rectangle = class {
+    constructor(width, height);
+        this.width = width;
+        this.height = height;
+    }
+};
+
+// named
+var Rectangle = class Rectangle {
+    constructor(width, height)  {
+        this.width = width;
+        this.height = height;
+    }
+};
+</pre>
+        </code>
+        <p>참고 : 클래스 표현식은 클래스 선언에서 언급 한 것과 동일한 호이스팅 문제가 있다. </p>
+
+    </section>
+
+
+    <section>
+        <h2>Class body and method definitions</h2>
+        <p>
+            Class body :  중괄호 {} 안에 있는 부분<br>
+            method나 constructor와 같은 클래스 멤버를 정의
+        </p>
+
+        <h3>Strict mode</h3>
+        <p>
+            The bodies of class declarations and class expressions are executed in strict mode i.e. constructor, static and prototype methods, getter and setter functions are executed in strict mode. <br>
+            클래스 선언 및 클래스 표현의 본문은 엄격 모드, 즉 생성자, 정적 및 프로토 타입 메소드에서 실행되며 getter 및 setter 함수는 엄격 모드에서 실행됩니다.  ??????
+        </p>
+
+        <h3>Constructor</h3>
+        <p>
+            A special method for creating and initializing an object created with a class. <br>
+            There can only be one special method with the name "constructor" in a class. <br>
+            A SyntaxError will be thrown if the class contains more than one occurrence of a constructor method.
+        </p>
+        <p>
+            A constructor can use the super keyword to call the constructor of a parent class.
+        </p>
+
+        <h3>Prototype Methods</h3>
+        <code class="code">
+<pre>
+    class Rectangle {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
+        }
+        get area(){
+            return this.calcArea();
+        }
+        calcArea(){
+            return this.width * this.height;
+        }
+    }
+    const square = new Rectangle(10, 10);
+    console.log(square.area);    
+</pre>            
+        </code>
+
+        <h3>Static Methods</h3>
+        <p>
+            The static keyword defines a static method for a class. <br>
+            Without instantiating their class and cannot be called through a class instance. <br>
+            Often used to create utility functions for an application.
+        </p>
+        <code class="code">
+<pre>
+    class Point{
+        constructor(x, y){
+            this.x = x;
+            this.y = y;
+        }
+        static distance(a, b){
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+
+            return Math.hypot(dx, dy);
+        }
+    }
+
+    const p1 = new Point(5, 5);
+    const p2 = new Point(10, 10);
+
+    console.log( Point.distance(p1, p2) );
+</pre>
+        </code>
+
+        <h3>Boxing with prototype and static methods</h3>
+        <p>
+            When a static or prototype method is called without an object valued "this", then the "this" value will be undefined inside the called function. <br>
+            Autoboxing will not happen. <br>
+            The behavior will be the same even if we write the code in non-strict mode because all the functions, methods, constructor, getters or setters are executed in strict mode. <br>
+            So if we do not specify this value then the this value will be undefined. <br>
+            정적 또는 프로토 타입 메소드가 "this"값을 가진 객체없이 호출되면 "this"값은 호출 된 함수 내에서 정의되지 않는다. <br>
+            Autoboxing은 일어나지 않는다. <br>
+            모든 함수, 메소드, 생성자, getter 또는 setter가 엄격 모드에서 실행되므로 비 엄격 모드에서 코드를 작성하더라도 동작은 동일합니다. <br>
+            따라서이 값을 지정하지 않으면이 값은 정의되지 않는다.
+        </p>
+        <code class="code">
+<pre>
+    class Animal{
+        speak(){
+            return this;
+        }
+        static eat(){
+            return this;
+        }
+    }
+
+    let obj = new Animal();
+    console.log( obj.speak() );  // Animal {}
+    let speak = obj.speak;
+    console.log( speak() ); // undefined
+
+    console.log( Animal.eat() ); // class Animal
+    let eat = Animal.eat;
+    console.log( eat() ); // undefined
+</pre>
+        </code>
+        <p>If we write the above code using traditional function based classes, then autoboxing will happen based on the "this" value for which the function was called.</p>
+        <code class="code">
+<pre>
+    function Animal(){}
+    Animal.prototype.speak = function(){
+        return this;
+    }
+    Animal.eat = function(){
+        return this;
+    }
+
+    let obj = new Animal();
+    let speak = obj.speak;
+    console.log( speak ); // f()
+
+    let eat = Animal.eat;
+    console.log( eat() ); // window
+</pre>
+        </code>
+    </section>
+
+    <section>
+        <h2>Sub classing with extends</h2>
+        <p>The extends keyword is used in class declarations or class expressions to create a class as a child of another class.</p>
+        <code class="code">
+<pre>
+    class Animal {
+        constructor(name){
+            this.name = name;
+        }
+        speak(){
+            console.log( this.name + ' makes a noise.' );
+        }
+    }
+
+    class Dog extends Animal{
+        speak(){
+            console.log( this.name + ' barks.');
+        }
+    }
+
+    var d = new Dog('Mitzie');
+    d.speak(); // Mitzie barks.
+</pre>
+        </code>
+        <p>
+            If there is a constructor present in sub-class, it needs to first call super() before using "this". <br>
+            One may also extend traditional function-based "classes":
+        </p>
+        <code class="code">
+<pre>
+    function Animal(name){
+        this.name = name;
+    }
+    Animal.prototype.speak = function(){
+        console.log( this.name + ' makes a noise.' );
+    }
+    class Dog extends Animal{
+        speak(){
+            console.log( this.name + ' barks.');
+        }
+    }
+
+    var d = new Dog('Mizzie');
+    d.speak(); // Mizzie barks.
+</pre>
+        </code>
+        <p>
+            Note that classes cannot extend regular (non-constructible) objects. <br>
+            If you want to inherit from a regular object, you can instead use Object.setPrototypeOf():
+        </p>
+        <code class="code">
+<pre>
+    var Animal = {
+        speak(){
+            console.log( this.name + '  makes a noise.');
+        }
+    };
+
+    class Dog {
+        constructor(name){
+            this.name = name;
+        }
+    }
+
+    Object.setPrototypeOf( Dog.prototype, Animal ); // If you do not do this you will get a TypeError when you invoke speak
+
+    var d = new Dog('Mitzie');
+    d.speak(); // Mitzie  makes a noise.
+</pre>
+        </code>
+    </section>
+
+    <section>
+        <h2>Species</h2>
+        <p>
+            You might want to return Array objects in your derived array class MyArray. The species pattern lets you override default constructors. <br>
+
+            For example, when using methods such as map() that returns the default constructor, you want these methods to return a parent Array object, instead of the MyArray object.  <br>
+            The Symbol.species symbol lets you do this:
+        </p>
+        <code class="code">
+<pre>
+    class MyArray extends Array {
+        // Overwrite species to the parent Array constructor
+        static get [Symbol.species](){
+            return Array;
+        }
+    }
+
+    var a = new MyArray(1, 2, 3);
+    var mapped = a.map( x => x * x );
+
+    console.log( mapped instanceof MyArray ); // false
+    console.log( mapped instanceof Array ); // true
+</pre>
+        </code>
+    </section>
+
+    <section>
+        <h2>Super class calls with super</h2>
+        <p>The super keyword is used to <span style="text-decoration: underline;">call functions on an object's parent.</span></p>
+    </section>
+    
+    <script type="text/javascript">
+        
+        // Classes > Class body and method definitions > Prototype Methods
+        /*
+        class Rectangle {
+            constructor(width, height) {
+                this.width = width;
+                this.height = height;
+            }
+            get area(){
+                return this.calcArea();
+            }
+            calcArea(){
+                return this.width * this.height;
+            }
+        }
+        const square = new Rectangle(10, 10);
+        */
+        
+
+        // Classes > Class body and method definitions > Static Methods
+        /*
+        class Point{
+            constructor(x, y){
+                this.x = x;
+                this.y = y;
+            }
+            static distance(a, b){
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+
+                return Math.hypot(dx, dy);
+            }
+        }
+
+        const p1 = new Point(5, 5);
+        const p2 = new Point(10, 10);
+
+        console.log( Point.distance(p1, p2) );
+        */
+
+
+        // Classes > Class body and method definitions > Boxing with prototype and static methods
+        /*
+        class Animal{
+            speak(){
+                return this;
+            }
+            static eat(){
+                return this;
+            }
+        }
+
+        let obj = new Animal();
+        console.log( obj.speak() );  // Animal {}
+        let speak = obj.speak;
+        console.log( speak() ); // undefined
+
+        console.log( Animal.eat() ); // class Animal
+        let eat = Animal.eat;
+        console.log( eat() ); // undefined
+        */
+        /*
+        function Animal(){}
+        Animal.prototype.speak = function(){
+            return this;
+        }
+        Animal.eat = function(){
+            return this;
+        }
+
+        let obj = new Animal();
+        let speak = obj.speak;
+        console.log( speak ); // f()
+
+        let eat = Animal.eat;
+        console.log( eat() ); // window
+        */
+
+
+
+        // Classes > Sub classing with extends
+        /*
+        class Animal {
+            constructor(name){
+                this.name = name;
+            }
+            speak(){
+                console.log( this.name + ' makes a noise.' );
+            }
+        }
+
+        class Dog extends Animal{
+            speak(){
+                console.log( this.name + ' barks.');
+            }
+        }
+
+        var d = new Dog('Mitzie');
+        d.speak(); // Mitzie barks.
+        */
+        /*
+        function Animal(name){
+            this.name = name;
+        }
+        Animal.prototype.speak = function(){
+            console.log( this.name + ' makes a noise.' );
+        }
+        class Dog extends Animal{
+            speak(){
+                console.log( this.name + ' barks.');
+            }
+        }
+
+        var d = new Dog('Mizzie');
+        d.speak(); // Mizzie barks.
+        */
+        /*
+        var Animal = {
+            speak(){
+                console.log( this.name + '  makes a noise.');
+            }
+        };
+
+        class Dog {
+            constructor(name){
+                this.name = name;
+            }
+        }
+
+        Object.setPrototypeOf( Dog.prototype, Animal ); // If you do not do this you will get a TypeError when you invoke speak
+
+        var d = new Dog('Mitzie');
+        d.speak(); // Mitzie  makes a noise.
+        */
+
+
+
+        // Classes > Species
+        /*
+        class MyArray extends Array {
+            // Overwrite species to the parent Array constructor
+            static get [Symbol.species](){
+                return Array;
+            }
+        }
+
+        var a = new MyArray(1, 2, 3);
+        var mapped = a.map( x => x * x );
+
+        console.log( mapped instanceof MyArray ); // false
+        console.log( mapped instanceof Array ); // true
+        */
+
+
+
+
+        // Classes > Super class calls with super
+        class Cat {
+            constructor(name){
+                this.name = name;
+            }
+            speak(){
+                console.log( this.name + ' makes a noise.' );
+            }
+        }
+
+        class Lion extends Cat {
+            speak(){
+                
+            }
+        }
+
+
+       /* class Cat { 
+          constructor(name) {
+            this.name = name;
+          }
+          
+          speak() {
+            console.log(this.name + ' makes a noise.');
+          }
+        }
+
+        class Lion extends Cat {
+          speak() {
+            super.speak();
+            console.log(this.name + ' roars.');
+          }
+        }
+
+        var l = new Lion('Fuzzy');
+        l.speak(); 
+        // Fuzzy makes a noise.
+        // Fuzzy roars.*/
+
+    </script>
+</body>
+</html>
