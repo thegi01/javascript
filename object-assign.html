@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Object.assign()</title>
+</head>
+<body>
+
+<h1>Object.assign()</h1>
+
+<div>
+	Used to copy the values of all enumerable own properties from one ore more source objects to a target object. <br>
+	It will return the target object.
+	열거할 수 있는 하나 이상의 소스 오브젝트로부터 타켓 오브젝트로 프로퍼티들을 복사하는데 사용된다. <br>
+	타겟 오브젝트가 반환된다.
+</div>
+
+<div>
+	<h2>Syntax</h2>
+	<p>Object.assign(target, ...sources)</p>
+	
+	<h3>Parameters</h3>
+	<dl>
+		<dt>target</dt>
+		<dd>The target object.</dd>
+		<dt>sources</dt>
+		<dd>The source object(s)</dd>
+	</dl>
+	
+	<h3>Return value</h3>
+	<p>The target object</p>
+</div>
+
+<div>
+	<h2>Description</h2>
+</div>
+
+
+<script>
+
+	/* 1. Clonig an object */
+	console.log( '1. Clonig An Object' );
+	var obj = {a : 1};
+	var copy = Object.assign({}, obj);
+	console.log(copy);
+
+
+	/* 2. Waring for Deep Clone */
+	console.log('2. Warning for Deep Clone');
+	function test(){
+		'use strict';
+
+		let obj1 = { a: 0, b: {c : 0}};
+		let obj2 = Object.assign( {}, obj1 );
+		console.log(JSON.stringify(obj2)); // {"a":0,"b":{"c":0}}
+
+		obj1.a = 1;
+		console.log(JSON.stringify(obj1)); // {"a":1,"b":{"c":0}}
+		console.log(JSON.stringify(obj2)); // {"a":0,"b":{"c":0}}
+
+		obj2.a = 2;
+		console.log(JSON.stringify(obj1)); // {"a":1,"b":{"c":0}}
+		console.log(JSON.stringify(obj2)); // {"a":2,"b":{"c":0}}
+
+		obj2.b.c = 3;
+		console.log(JSON.stringify(obj1)); // {"a":1,"b":{"c":3}}
+		console.log(JSON.stringify(obj2)); // {"a":2,"b":{"c":3}}
+
+		// Deep Clone
+		obj1 = { a: 0, b: {c: 0}};
+		let obj3 = JSON.parse(JSON.stringify(obj1));
+		obj1.a = 4;
+		obj1.b.c = 4;
+		console.log(JSON.stringify(obj3)); // {"a":0,"b":{"c":0}}
+
+	}
+	test();
+
+	/* 3. Merging Object */
+	console.log('3. Merging Object');
+
+	var o1 = {a: 1};
+	var o2 = {b: 2};
+	var o3 = {c: 3};
+	var obj = Object.assign(o1, o2, o3);
+	console.log(obj); // {a: 1, b: 2, c: 3}
+	console.log(o1); // {a: 1, b: 2, c: 3} target object itself is changed.
+
+
+	/* 4. Meging objects with same properties */
+	console.log('4. Meging objects with same properties');
+	var o1 = { a: 1, b: 1, c: 1};
+	var o2 = { b: 2, c: 2};
+	var o3 = { c: 3};
+	var obj = Object.assign({}, o1, o2, o3);
+	console.log(obj); // {a: 1, b: 2, c: 3}
+
+	/* 5. Copying symbol-typed properties */
+	console.log('5. Copying symbol-typed properties');
+	var o1 = { a: 1};
+	var o2 = { [Symbol('foo')]: 2 };
+	var obj = Object.assign({}, o1, o2);
+	console.log(obj); // {a: 1, Symbol(foo): 2}
+	console.log( Object.getOwnPropertySymbols(obj) ); // [Symbol(foo)]
+
+	/* 6. Properties on the prototype chain and non-enumerable properties cannot be copied */
+	console.log( '6. Properties on the prototype chain and non-enumerable properties cannot be copied' );
+	var obj = Object.create({ foo:1 }, { // fo is on obj's propertype chain
+		bar: {
+			value: 2 // bar is a non-enumerable property.
+		},
+		baz: {
+			value: 3,
+			enumerable: true // baz is an own enumerable property.
+		}
+	});
+	var copy = Object.assign({}, obj);
+	console.log(obj); // {baz: 3}
+	console.log(copy); // {baz: 3}
+
+	/* 7. Primitives will be wrapped to objects */
+	console.log('7. Primitives will be wrapped to objects');
+	var v1 = 'abc';
+	var v2 = true;
+	var v3 = 10;
+	var v4 = Symbol('foo');
+
+	var obj = Object.assign({}, v1, null, v2, undefined, v3, v4);
+	// Primitives will be wrapped, null and undefined will be ignored.
+	// Note, only string wrappers can have own enumerable properties.
+	console.log(obj); // {0: "a", 1: "b", 2: "c"}0: "a"1: "b"2: "c"__proto__: Object
+
+	/* 8.Exceptions willinterrupt the ongoing copying task */
+	console.log('8.Exceptions willinterrupt the ongoing copying task');
+	var target = Object.defineProperty({}, 'foo',{
+		value: 1,
+		writable: false
+	}); // taregt.foo is a read-only property
+	
+	/*Object.assign( target, {bar :2}, { foo2: 3, foo: 3, foo3: 3}, {baz: 4});
+	// TypeError : "foo" is read-only
+	// The Exception is thrown when assigning target.foo
+
+	console.log( target.bar );
+	console.log( target.foo2 );
+	console.log( target.foo );
+	console.log( target.foo3 );
+	console.log( target.baz );*/
+
+
+	/* 9. Copying accessors */
+	console.log('9. Copying accessors');
+	var obj = {
+		foo: 1,
+		get bar(){
+			return 2;
+		}
+	};
+
+	var copy = Object.assign({}, obj);
+	console.log(obj);
+	console.log(copy); //{foo: 1, bar: 2}, the value of copy.bar is obj.bar's getter's return valuse
+
+	// This is assign funcition that copies full descriptros
+	function completeAssign(target, ...sources){
+		sources.forEach( soucrce => {
+			
+		})
+	}
+
+
+	/*
+
+
+	// This is an assign function that copies full descriptors
+	function completeAssign(target, ...sources) {
+	  sources.forEach(source => {
+	    let descriptors = Object.keys(source).reduce((descriptors, key) => {
+	      descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
+	      return descriptors;
+	    }, {});
+	    // by default, Object.assign copies enumerable Symbols too
+	    Object.getOwnPropertySymbols(source).forEach(sym => {
+	      let descriptor = Object.getOwnPropertyDescriptor(source, sym);
+	      if (descriptor.enumerable) {
+	        descriptors[sym] = descriptor;
+	      }
+	    });
+	    Object.defineProperties(target, descriptors);
+	  });
+	  return target;
+	}
+
+	var copy = completeAssign({}, obj);
+	console.log(copy);
+	// { foo:1, get bar() { return 2 } }*/
+
+
+
+
+
+</script>
+
+</body>
+</html>
