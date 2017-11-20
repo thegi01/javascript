@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Array.prototype.map()</title>
+</head>
+<body>
+
+	<h1>Array.prototype.map()</h1>
+
+	<h2>Summary</h2>
+	<div>The map() method creates a new array with the results of calling a provided function on every element in the calling array.</div>
+
+	<h2>Syntax</h2>
+	<pre>
+		<code>
+	var new_array = arr.map(function callback(currentValue, index, array) {
+	    // Return element for new_array
+	}[, thisArg])
+		</code>
+	</pre>
+
+	<h3>Parameters</h3>
+
+	<section>
+		<h4>callback</h4>
+		<div>Function that produces an element of the new Array, taking three arguments:</div>
+		<dl>
+			<dt>currentValue</dt>
+			<dd>The current element being processed in the array.</dd>
+
+			<dt>index | optional</dt>
+			<dd>The index of the current element being processed in the array.</dd>
+
+			<dt>array | optional</dt>
+			<dd>The array map was called upon.</dd>
+		</dl>
+		<h4>thiArg : optional</h4>
+		<div>Value to use as this when executing callback. </div>
+	</section>
+
+	<h3>Return value</h3>
+	<div>A new array with each element being the result of the callback function.</div>
+
+	<h3>Examples</h3>
+	<select>
+		<option value="aaa" checked>aaa</option>
+	</select>
+	<select>
+		<option value="bbb" checked>bbb</option>
+	</select>
+
+<script>
+	/* Array.prototype.map() */
+	console.log('Array.prototype.map()');
+
+	console.log('');
+
+	console.log('1.');
+	var numbers = [1, 5, 10, 15];
+	var doubles = numbers.map( function(x) {
+		return x * 2;
+	});
+	console.log('numbers', numbers);
+	console.log('doubles', doubles);
+	// doubles is now [2, 10, 20, 30]
+	// numbers is still [1, 5, 10, 15]
+
+	console.log('');
+
+	console.log('2. ES6 example');
+	const numbers2 = [2, 4, 8, 10];
+	const halves = numbers2.map( x => x/2 );
+	// halves is now [1, 2, 4, 5]
+	// numbers is still [2, 4, 8, 10]
+
+
+	console.log('');
+
+	console.log('3. Mapping an array of numbers to an array of square roots');
+	var numbers3 = [1, 4, 9];
+	var roots = numbers3.map( Math.sqrt );
+
+	console.log(numbers3);
+	console.log(roots);
+	// roots is now [1, 2, 3]
+	// numbers is still [1, 4, 9]
+
+
+	console.log('');
+
+	console.log('4. Using map to reformat objects in an array');
+	var kvArray = [
+		{key: 1, value: 10},
+		{key: 2, value: 20},
+		{key: 3, value: 30}
+	];
+	var reformattedArray = kvArray.map( function(obj){
+		var rObj = {};
+		rObj[obj.key] = obj.value;
+		return rObj;
+	});
+	console.log('reformattedArray', reformattedArray);
+
+
+	console.log('');
+
+	console.log('5. Using map generically');
+	console.log('This example shows how to use map on a String to get an array of bytes in the ASCII encoding representing the charater values:')
+	var map = Array.prototype.map;
+	var a = map.call( 'Hello World', function(x){
+		return x.charCodeAt(0);
+	});
+	console.log(a); // (11) [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+
+	console.log('');
+
+	console.log('6. Using map generically querySelectorAll');
+	console.log('This exmaple shows how to iterate through a collection of objects collected by querySelectorAll. In this case we get all selected options on the screen and printed on th console:');
+	var elems = document.querySelectorAll('select option:checked');
+	var values = Array.prototype.map.call( elems, function(obj){
+		return obj.value;
+	}); 
+	console.log(values);
+	console.log('Easier way would be using Array.from() method.');
+
+	console.log('');
+
+	console.log('7. Using map to reverse a string');
+	var str = '12345';
+	Array.prototype.map.call( str, function(x) {
+		return x;
+	}).reverse().join('');
+	console.log(str); // "12345"
+	console.log('Easier way would be using String.split() method (see Reversing a String using split() example).');
+
+	
+	console.log('');
+
+	console.log('8. Tricky use case');
+	console.log('It is common to use the callback with one argument (the element being traversed). Certain functions are also commonly used with one argument, even though they take additional optional arguments. These habits may lead to confusing behaviors.')
+	console.log( ['1', '2', '3'].map(parseInt) ); // (3) [1, NaN, NaN]
+
+	function returnInt(element){
+		return parseInt(element, 10);
+	}
+	['1', '2', '3'].map(returnInt); // [1, 2, 3]
+	['1', '2', '3'].map( str => parseInt(str) );  //  [1, 2, 3]
+	['1', '2', '3'].map(Number);  // [1, 2, 3]
+	['1.1', '2.2e2', '3e300'].map(Number); // [1.1, 220, 3e+300]
+
+
+
+	
+
+
+
+
+</script>
+
+</body>
+</html>
