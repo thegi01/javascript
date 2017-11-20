@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Object.keys()</title>
+</head>
+<body>
+
+
+    <h1>Object.keys</h1>
+
+
+    <section>
+        <h2>Syntax</h2>
+
+        <div>Object.keys(obj)</div>
+
+        <h3>Parameters</h3>
+        <dl>
+            <dt>obj</dt>
+            <dd>The object of which the enumerable own properties are to be returned. </dd>
+            <dt>Retrun value</dt>
+            <dd>An array of strings that represent all the enumerable properties of the given object. </dd>
+        </dl>
+
+        <h3>설명</h3>
+        <div>
+            <p>bject.keys() returns an array whose elements are strings corresponding to the enumerable properties found directly upon object. </p>
+            <p>The ordering of the properties is the same as that given by looping over the properties of the object manually.</p>
+
+            <p>Object.keys()는 object에서 직접 검색된 열거형 속성들에 대응하는 문자열들을 요소로 갖는 배열을 반환합니다.</p>
+            <p>반환된 요소는 객체의 요소 전체를 수동으로 반복(loop)하며 주워지는 순서와 동일합니다.</p>
+        </div>   
+    </section>
+
+<script>
+
+    console.log('1. ');
+    var arr = ['a', 'b', 'c'];
+    console.log( Object.keys(arr) ); // (3) ["0", "1", "2"]
+
+    console.log('2. array like object');
+    var obj = { 0: 'a', 1: 'b', 2: 'c'};
+    console.log( Object.keys(obj) ); // (3) ["0", "1", "2"]
+
+    console.log('3. array like object with random key ordering');
+    var anObj = { 100: 'a', 2: 'b', 7: 'c'};
+    console.log( Object.keys(anObj) ); // (3) ["2", "7", "100"]
+
+    console.log("4. getFoo is property which isn't enumrable");
+    var myObj = Object.create({}, {
+        getFoo : {
+            value : function(){ return this.foo; }
+        }
+    });
+    myObj.foo = 1;
+    console.log( Object.keys(myObj) ); // ["foo"]
+
+
+    console.log( Object.keys('foo') ); // (3) ["0", "1", "2"]
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
