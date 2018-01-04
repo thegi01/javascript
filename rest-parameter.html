@@ -2,9 +2,90 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>rest parameter</title>
+    <title>Rest Parameter(나머지 매개변수)</title>
+    <style>
+        body {
+            margin: 1rem 1.5rem;
+            font-family: "Open Sans",arial,x-locale-body,sans-serif;
+            line-height: 1.5;
+        }
+        .code {
+            padding-top: 1rem;
+            border-left: 5px solid #3f87a6;
+            background-color: #eee;
+            color: #333;
+        }
+
+    </style>
 </head>
 <body>
+    <h1>Rest Parameter</h1>
+    <p>
+        The rest parameter syntax allows us to represent an indefinite number of arguments as an array. <br>
+        나머지 매개변수 구문은 정해지지 않은 수 인수를 배열로 나타낼 수 있게 합니다.
+    </p>
+    
+    <hr>
+
+    <h2>Syntax</h2>
+    <pre class="code">
+        function(a, b, ...theArgs) {
+            // ...
+        }
+    </pre>
+    <div class="description">
+        <p>If the last named argument of a function is prefixed with ... <br>
+        it becomes an array whose elements from 0 (inclusive) to theArgs.length (exclusive) are supplied by the actual arguments passed to the function.</p>
+        <p>In the above example, theArgs would collect the third argument of the function (because the first one is mapped to a, and the second to b) and all the consecutive arguments.</p>
+
+    </div>
+
+    <h3>Difference between rest parameters and the arguments objec</h3>
+    <ul>
+        <li>Rest parameters are only the ones that haven't been given a separate name, while the arguments object contains all arguments passed to the function.</li>
+        <li>The arguments object is not a real array, while rest parameters are Array instances, meaning methods like sort, map, forEach or pop can be applied on it directly</li>
+        <li>The arguments object has additional functionality specific to itself (like the callee property).</li>
+    </ul>
+
+    <h3>From arguments to an array</h3>
+    <pre class="code">
+        // Before rest parameters, the following could be found:
+        function f(a, b) {
+          var args = Array.prototype.slice.call(arguments, f.length);
+
+          // …
+        }
+
+        // to be equivalent of
+        function f(a, b, ...args) {
+          
+        }
+    </pre>
+
+    <h3>Example</h3>
+    <pre class="code">
+        function fun1(...theArgs) {
+          console.log(theArgs.length);
+        }
+
+        fun1();  // 0
+        fun1(5); // 1
+        fun1(5, 6, 7); // 3
+    </pre>
+
+    <h3>Destructuring rest parameters</h3>
+    <p>Rest parameters can be destructured, that means that their data can be unpacked into distinct variables. See Destructuring assignment.</p>
+    <pre class="code">
+        function f(...[a, b, c]) {
+          return a + b + c;
+        }
+
+        f(1)          // NaN (b and c are undefined)
+        f(1, 2, 3)    // 6
+        f(1, 2, 3, 4) // 6 (the fourth parameter is not destructured)
+    </pre>
+
+
     <script type="text/javascript">
 
         /* rest parameter */
