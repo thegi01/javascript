@@ -3,11 +3,46 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Array.prototype.forEach()</title>
+    <link rel="stylesheet" href="code.css">
 </head>
 <body>
 
+	<h1>Array.prototype.forEach()</h1>
+
+	<p>The forEach() method executes a provided function once for each array element.</p>
+
+	<pre class="code">
+		const arr = ['a', 'b', 'c'];
+
+		arr.forEach(function(element) {
+		    console.log(element);
+		});
+
+		// a
+		// b
+		// c
+	</pre>
+
+	<h2>Syntax</h2>
+	<pre class="code">
+		arr.forEach(function callback(currentValue[, index[, array]]) {
+		    //your iterator
+		}[, thisArg]);
+	</pre>
+
+	<h2>Can I Use</h2>
+	<div id="use"></div>
+
+
 
 <script>
+	/* Can I Use */
+	console.log('Array.prototype.forEach', Array.prototype.forEach);
+	var useEl = document.getElementById('use');
+	useEl.textContent = Array.prototype.forEach;
+
+	console.log('');
+
 	/* Array.prototype.forEach() */
 	console.log('Array.prototype.forEach()');
 
