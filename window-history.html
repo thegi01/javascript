@@ -9,26 +9,61 @@
 
 	<h1>window.history</h1>
 
-	<div id="state"></div>
-	<button type="button" id="pushState">pushState</button>
-	<button type="button" id="pushState2">pushState2</button>
-	<button type="button" id="replaceState">replaceState</button>
+	<p>The History interface allows maipulation of the browser session historty, this is the pages visited in the tab or frame that the current page is loaded in.</p>
+	
+	<section>
+		<h2>Propertis</h2>
+		<dt>History.length</dt>
+		<dd>Returns an Integer representing the number of elements in the session history, including the currently loaded pages. For example, fora page loaded in a new tab this property retruns a.</dd>
+		<dt>History.scrollRestoration</dt>
+		<dd>Allows web applications to explicitly set default scroll restoration behavior on history navigation. This property can be either auto or manual. This property can be either <code>auto</code> or <code>manual</code>.</dd>
+		<dt>History.state</dt>
+		<dd>Returns an any value representing the state at the top of the history statck. This is a way to look at the state without having to wait for a <code>popstate</code> event.</dd>
+	</section>
 
-<script>
-	pushState.addEventListener('click', function(){
-		history.pushState({ data: 'pushpush' }, 'title을 pushState로', '/pushpush')
-	});
-	pushState2.addEventListener('click', function(){
-		history.pushState({ data: 'pushpush2' }, 'title을 pushState로', '/pushpush2')
-	});
-	replaceState.addEventListener('click', function(){
-		history.replaceState({data: 'replace'}, 'title을 replaceState로', '/replace');
-	});
-	window.addEventListener('popstate', function(){
-		console.log('popstate', history.state);
-		state.innerHTML = JSON.stringify(history.state);
-	});
-</script>
+	<section>
+		<h2>Methods</h2>
+		<dt>History.back()</dt>
+		<dd>History.go(-1)</dd>
+		<dt>History.forward()</dt>
+		<dd>History.go(1)</dd>
+		<dt>History.go()</dt>
+		<dd></dd>
+		<dt>History.pushState()</dt>
+		<dd>history.pushState(state object, title, URL) <br>
+			Pushes the given data onto the session history stack width the specified title and, if provided, URL.
+		</dd>
+		<dt>History.replaceState()</dt>
+		<dd>history.replaceState(state object, title, URL) <br>
+			Updates the most recent entry on th history stack to have the specifed data, title, and , if provided, URL.
+		</dd>
+	</section>
+
+
+	
+	<section>
+		<h2>Example</h2>
+		<div id="state"></div>
+		<button type="button" id="pushState">pushState</button>
+		<button type="button" id="pushState2">pushState2</button>
+		<button type="button" id="replaceState">replaceState</button>
+		<script>
+			pushState.addEventListener('click', function(){
+				history.pushState({ data: 'pushpush' }, 'title을 pushState로', '/pushpush')
+			});
+			pushState2.addEventListener('click', function(){
+				history.pushState({ data: 'pushpush2' }, 'title을 pushState로', '/pushpush2')
+			});
+			replaceState.addEventListener('click', function(){
+				history.replaceState({data: 'replace'}, 'title을 replaceState로', '/replace');
+			});
+			window.addEventListener('popstate', function(){
+				console.log('popstate', history.state);
+				state.innerHTML = JSON.stringify(history.state);
+			});
+		</script>
+	</section>
+
 
 </body>
 </html>
