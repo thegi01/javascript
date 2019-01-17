@@ -11,11 +11,15 @@
 
 	<div id="state"></div>
 	<button type="button" id="pushState">pushState</button>
+	<button type="button" id="pushState2">pushState2</button>
 	<button type="button" id="replaceState">replaceState</button>
 
 <script>
 	pushState.addEventListener('click', function(){
 		history.pushState({ data: 'pushpush' }, 'title을 pushState로', '/pushpush')
+	});
+	pushState2.addEventListener('click', function(){
+		history.pushState({ data: 'pushpush2' }, 'title을 pushState로', '/pushpush2')
 	});
 	replaceState.addEventListener('click', function(){
 		history.replaceState({data: 'replace'}, 'title을 replaceState로', '/replace');
