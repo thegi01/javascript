@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>template literal</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+
+	<div id="el1"></div>
+	
+
+<script>
+	/* if */
+	let boolean1 = true;
+	let t1 = `Is apple ? ${ boolean1 ? 'yes' : 'no'}`;
+	console.log(t1);
+
+	let boolean2 = function(){
+		return false;
+	};
+	let t2 = `Is apple ? ${ boolean2() ? 'yes' : 'no'}`;
+	console.log(t2);
+
+	/* for */
+	const data = [ 'a', 'b', 'c', 'd', 'e'];
+	/*let array = [];
+	data.map( item => {
+		array.push(`<p>${item}</p>`);
+	});
+	let t3 = `<div>${array.join('')}</div>`;*/
+	// let t3 = data.map( item =>{
+	// 	return `<p>${item}</p>`
+	// })
+	let t3 = `<p>${data.join('')}</p>`
+	console.log(t3);
+
+
+	
+
+
+
+</script>
+
+</body>
+</html>
