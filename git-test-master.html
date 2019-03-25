@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>export</title>
+  </head>
+  <body>
+    <h1>Export</h1>
+
+    <h2>Syntax</h2>
+    <p>export { name1, name2, …, nameN };</p>
+    <p>export { variable1 as name1, variable2 as name2, …, nameN };</p>
+    <p>export let name1, name2, …, nameN; // also var, const</p>
+    <p>export let name1 = …, name2 = …, …, nameN; // also var, const</p>
+    <p>export function FunctionName(){...}</p>
+    <p>export class ClassName {...}</p>
+
+    <p>export default expression;</p>
+    <p>export default function (…) { … } // also class, function*</p>
+    <p>export default function name1(…) { … } // also class, function*</p>
+    <p>export { name1 as default, … };</p>
+
+    <p>export * from …;</p>
+    <p>export { name1, name2, …, nameN } from …;</p>
+    <p>export { import1 as name1, import2 as name2, …, nameN } from …;</p>
+    <p>export { default } from …;</p>
+
+    <script>
+
+      /* 1. Named exports */
+      // export a function declared earlier
+      export  { myFunction };
+
+      // export a constant
+      export const foo = Math.sqrt(2);
+
+      /* 2. Default exports (function) */
+      export default function(){}
+
+      /* 3. Default exports (class) */
+      export default class{}
+    </script>
+  </body>
+</html>
