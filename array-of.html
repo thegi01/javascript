@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array.of()</title>
+  </head>
+  <body>
+    <h1>Array.of(arrayLike[, mapFn(, thisArg)])</h1>
+    <h1>
+      Array.of(element0[, element1[, ...[, elementN]]])
+    </h1>
+    <div>
+      <p>
+        The The Array.of() method creates a new Array instance from a variable
+        number of arguments, regardless of number or type of the arguments.
+      </p>
+      <p>
+        The difference between Array.of() and the Array constructor is in the
+        handling of interger arguments: Array.of(7) creates an array with a
+        single element, 7, whereas Array(7) creates an empth with a length
+        property of 7 (Note: this implies an array of 7 empth slots, not slots
+        with actual undefined values).
+      </p>
+    </div>
+
+    <h2>Parameters</h2>
+    <ul>
+      <li>
+        elementN: Elements of which to create the array.
+      </li>
+    </ul>
+
+    <h2>반환값</h2>
+    A new Array instance.
+
+    <script>
+      //       Array.of(7);       // [7]
+      // Array.of(1, 2, 3); // [1, 2, 3]
+
+      // Array(7);          // array of 7 empty slots
+      // Array(1, 2, 3);    // [1, 2, 3]
+
+      console.log(Array.of(7)); // [7]
+      console.log(Array.of(1, 2, 3)); // [1, 2, 3]
+
+      console.log(Array(7)); // array of  mepth slots
+      console.log(Array(1, 2, 3));
+    </script>
+  </body>
+</html>
