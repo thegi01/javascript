@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array.prototype.keys()</title>
+  </head>
+  <body>
+    <h1>Array.prototype.keys()</h1>
+
+    <p>
+      The keys() method returns a new Array iterator object that contains the
+      keys for each index in the array.
+    </p>
+
+    <h2>Syntax</h2>
+    <p>array.keys()</p>
+
+    <h3>Return value</h3>
+    <p>A new Array iterator object.</p>
+
+    <script>
+      var array1 = ["a", "b", "c"];
+      var iterator = array1.keys();
+      for (let key of iterator) {
+        console.log(key); // 0 1 2
+      }
+
+      /* Key iterator doesn't ignore holes */
+      var arr = ["a", , "c"];
+      var sparseKeys = Object.keys(arr);
+      var denseKeys = [...arr.keys()];
+      console.log(sparseKeys); // ['0', '2']
+      console.log(denseKeys); // [0, 1, 2]
+    </script>
+  </body>
+</html>
