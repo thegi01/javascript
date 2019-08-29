@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array.prototype.entries()</title>
+  </head>
+  <body>
+    <h1>Array.prototype.entries()</h1>
+
+    <p>
+      The entries() method returns a new Array Iterator object that contains the
+      key/value pairs for each index in the array.
+    </p>
+
+    <h2>Syntax</h2>
+    <p>array.entries()</p>
+
+    <h3>Return value</h3>
+    <p>A new Array iterator object.</p>
+
+    <script>
+      // var array1 = ["a", "b", "c"];
+
+      // var iterator1 = array1.entries();
+
+      // console.log(iterator1.next().value);
+      // // expected output: Array [0, "a"]
+
+      // console.log(iterator1.next().value);
+      // // expected output: Array [1, "b"]
+
+      var array1 = ["a", "b", "c"];
+      var iterator1 = array1.entries();
+      console.log(iterator1.next().value); // [0, "a"]
+      console.log(iterator1.next().value); // [1, "b"]
+
+      /* 1. Iterating with index and element */
+      const a = ["a", "b", "c"];
+      for (const [index, element] of a.entries()) {
+        console.log(index, element);
+      }
+      // 0 'a'
+      // 1 'b'
+      // 2 'c'
+
+      /* Using a for...of loop */
+      var b = ["a", "b", "c"];
+      var iterator = b.entries();
+      for (let e of iterator) {
+        console.log(e);
+      }
+      // [0, 'a']
+      // [1, 'b']
+      // [2, 'c']
+    </script>
+  </body>
+</html>
