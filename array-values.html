@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array.prototype.vaues()</title>
+  </head>
+  <body>
+    <h1>Array.prototype.vaues()</h1>
+
+    <p>
+      The values() method returns a new Array Iterator object that contains the
+      valuse for each index in the array.
+    </p>
+
+    <h2>Syntax</h2>
+    <p>array.values()</p>
+
+    <h3>Return value</h3>
+    <p>A new Array iterator object.</p>
+
+    <script>
+      const array1 = ["a", "b", "c"];
+      const iterator = array1.values();
+      for (const value of iterator) {
+        console.log(value); // a b c
+      }
+
+      var a = ["aa", "b", "c", "d", "e"];
+      var iterator2 = a.values();
+      console.log(iterator2.next().value); // a
+      console.log(iterator2.next().value); // b
+      console.log(iterator2.next().value); // c
+      console.log(iterator2.next().value); // d
+      console.log(iterator2.next().value); // e
+
+      /* Iteration using for...of loop */
+      var arr = ["aaa", "b", "c", "d", "e"];
+      var iterator3 = arr.values();
+      for (let letter of iterator3) {
+        console.log(letter);
+      }
+    </script>
+  </body>
+</html>
