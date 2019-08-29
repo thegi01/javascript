@@ -39,6 +39,9 @@
       for (let letter of iterator3) {
         console.log(letter);
       }
+
+      /* Array.prototype.values is default implementation of Array.prototype[Symbol.iterator]. */
+      console.log(Array.prototype.values === Array.prototype[Symbol.iterator]);
     </script>
   </body>
 </html>
