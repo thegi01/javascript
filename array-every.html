@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array.prototype.every()</title>
+  </head>
+  <body>
+    <h1>Array.prototype.every()</h1>
+
+    <p>
+      The every() method tests whether all elements in the array pass the test
+      implemented by the provided function. It returns a Bollean valus.
+    </p>
+    <p>
+      Note : This method returns true for any condition put on an empty rarry.
+    </p>
+
+    <h2>Syntax</h2>
+    <p>
+      arr.every(callback(element[, index[, array]])[, thisArg])
+    </p>
+
+    <h3>Parameters</h3>
+    <dl>
+      <dt>callback</dt>
+      <dd>A function to test for each element, taking three arguments:</dd>
+      <dl>
+        <dt>element</dt>
+        <dd>
+          The current element being processed in the array.
+        </dd>
+        <dt>index (Opitonal)</dt>
+        <dd>
+          The index of the current element being processed in the array.
+        </dd>
+        <dt>array(Optional)</dt>
+        <dd>
+          The array every was called upon.
+        </dd>
+      </dl>
+      <dt>thisArg (Optional)</dt>
+      <dd>
+        A value to use as this when executing callback.
+      </dd>
+    </dl>
+
+    <h3>Return value</h3>
+    <p>
+      true if the callback function returns a thuthy value for every array
+      element. Otherwise, false.
+    </p>
+
+    <script>
+      function isBelowThreshold(currentValue) {
+        return currentValue < 40;
+      }
+      var array1 = [1, 30, 39, 29, 19, 13];
+      console.log(array1.every(isBelowThreshold)); // true
+
+      /* Testing size of all array elements */
+      // function isBigEnough(element, index, array) {
+      //   return element >= 10;
+      // }
+      // [12, 5, 8, 130, 44].every(isBigEnough); // false
+      // [12, 54, 18, 130, 44].every(isBigEnough); // true
+
+      function isBigEnough(element, index, array) {
+        return element >= 10;
+      }
+      console.log([12, 5, 8, 130, 44].every(isBigEnough)); // false
+      console.log([12, 54, 18, 130, 44].every(isBigEnough)); // true
+
+      /* Using arrou functions */
+      [12, 5, 8, 130, 44].every(x => x >= 10); // false
+      [12, 54, 18, 130, 44].every(x => x >= 10); // true​
+
+      /*  Affecting Initial Array (modifying, appending and deleting) */
+
+      // Modifying items
+      let arr = [1, 2, 3, 4];
+      arr.every((elem, index, arr) => {
+        arr[index + 1] -= 1;
+        console.log(`[${arr}][${index}] -> ${elem}`);
+        return elem < 2;
+      });
+      // 1st iteration: [1,1,3,4][0] -> 1
+      // 2nd iteration: [1,1,2,4][1] -> 1
+      // 3rd iteration: [1,1,2,3][2] -> 2
+
+      // Appending items
+      arr = [1, 2, 3, 4];
+      arr.every((elem, index, arr) => {
+        arr.push("new");
+        console.log(`[${arr}][${index}] -> ${elem}`);
+        return elem < 5;
+      });
+      // [1,2,3,4,new][0] -> 1
+      // [1,2,3,4,new,new][1] -> 2
+      // [1,2,3,4,new,new,new][2] -> 3
+      // [1,2,3,4,new,new,new,new][3] -> 4
+
+      // Deleting items
+      // arr = [1, 2, 3, 4];
+      // arr.every((elem, index, arr) => {
+      //   arr.pop();
+      //   console.log(`[${arr}][${index}] -> ${elem}`);
+      //   return elem < 4;
+      // });
+      // Loop runs upto two iterations only, as the rest item's been popped off
+      // 1st iteration: [1,2,3][0] -> 1
+      // 2nd iteration: [1,2][1] -> 2
+
+      arr = [1, 2, 3, 4];
+      arr.every((elem, index, arr) => {
+        arr.pop();
+        console.log(`[${arr}][${index}] -> ${elem}`);
+        return elem < 4;
+      });
+      // [1,2,3][0] -> 1
+      // [1,2][1] -> 2
+    </script>
+  </body>
+</html>
