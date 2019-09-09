@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>for...of</title>
+  </head>
+  <body>
+    <h1>for..of</h1>
+
+    <p>
+      The for...of statement creates a loop iterating over iterable objects,
+      including : bulit-in String, Array, Array-like objects(e.g., arguments or
+      NodeList), TypedArray, Map, Set and user-defined iterables. It invokes a
+      custom iteration hook with statesments to be excuted for the value of each
+      distinct property of the object.
+    </p>
+
+    <h2>Syntax</h2>
+    <p>
+      for(variable of iterable){ statement }
+    </p>
+    <h3>variable</h3>
+    <p>
+      On each interation a value of a diffent property is assigned to variable.
+      variable may be declared with const, let, or var.
+    </p>
+    <h3>iterable</h3>
+    <p>
+      Object whose iterable properties are iterated
+    </p>
+
+    <script>
+      /* JavaScript Demo: Statement - For...Of */
+      function* foo() {
+        yield 1;
+        yield 2;
+      }
+      for (let o of foo()) {
+        console.log(o); // expected output: 1
+        break; // closes iterator, triggers return
+      }
+
+      /* Iterating over an Array */
+      let iterableArray = [10, 20, 30];
+      for (let value of iterableArray) {
+        value += 1;
+        console.log(value);
+      }
+      // 11
+      // 21
+      // 31
+
+      let iterableString = "boo";
+      for (let value of iterableString) {
+        console.log(value);
+      }
+      // "b"
+      // "o"
+      // "o"
+    </script>
+  </body>
+</html>
