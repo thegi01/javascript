@@ -29,6 +29,12 @@
       Object whose iterable properties are iterated
     </p>
 
+    <article>
+      <p>pagraph 1</p>
+      <p>pagraph 2</p>
+      <p>pagraph 3</p>
+    </article>
+
     <script>
       /* JavaScript Demo: Statement - For...Of */
       function* foo() {
@@ -57,6 +63,164 @@
       // "b"
       // "o"
       // "o"
+
+      /* Iterating over a TypedArray */
+      let iterableTypedArray = new Uint8Array([0x00, 0xff]);
+      for (let value of iterableTypedArray) {
+        console.log(value);
+      }
+      // 0
+      // 255
+
+      /* Iterating over a Map */
+      let iterableMap = new Map([["a", 1], ["b", 2], ["c", 3]]);
+
+      for (let entry of iterableMap) {
+        console.log(entry);
+      }
+      // ['a', 1]
+      // ['b', 2]
+      // ['c', 3]
+
+      for (let [key, value] of iterableMap) {
+        console.log(value);
+      }
+      // 1
+      // 2
+      // 3
+
+      /* Iterating over a Set */
+      // let iterable = new Set([1, 1, 2, 2, 3, 3]);
+      let iterableSet = new Set([1, 1, 2, 2, 3, 3]);
+      for (let value of iterableSet) {
+        console.log(value);
+      }
+      // 1
+      // 2
+      // 3
+
+      /* Iterating over the arguments object */
+      (function() {
+        for (let argument of arguments) {
+          console.log(argument);
+        }
+      })(1, 2, 3);
+      // 1
+      // 2
+      // 3
+
+      /* Iterating over a DOM collection */
+      let articlePargraphs = document.querySelectorAll("article > p");
+      for (let paragraph of articlePargraphs) {
+        paragraph.classList.add("read");
+      }
+
+      /* Closing iterators */
+      // In for...of loops, abrupt iteration termination can be caused by break, throw or return. In these cases, the iterator is closed.
+
+      function* foo() {
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      for (let o of foo()) {
+        console.log(o);
+        break; // closes iterator, execution continues outside of the loop
+      }
+      console.log("done");
+
+      /* Iterating over generators */
+      console.log("fibonacci");
+
+      function* fibonacci() {
+        // generator function
+        let [prev, curr] = [0, 1];
+        while (true) {
+          [prev, curr] = [curr, prev + curr];
+          yield curr;
+        }
+      }
+
+      for (let n of fibonacci()) {
+        console.log(n);
+        // turncate the sequence at 1000
+        if (n >= 1000) {
+          break;
+        }
+      }
+
+      /* Do nou reuse generators */
+      // Generators should not be re-used, even if the for...of loop is terminated early, for example via the break keyword. Upon exiting a loop, the generator is closed and trying to iterate over it again does not yield any further results.
+      let gen = (function*() {
+        yield 1;
+        yield 2;
+        yield 3;
+      })();
+
+      for (let o of gen) {
+        console.log(o);
+        break; // Closes iterator
+      }
+      for (let o of gen) {
+        console.log(o); // Never called.
+      }
+
+      /* Iterating over other iterable objects */
+
+      console.log("iterable objects");
+      let iterableObject = {
+        [Symbol.iterator]() {
+          return {
+            i: 0,
+            next() {
+              if (this.i < 3) {
+                return { value: this.i++, done: false };
+              }
+              return { value: undefined, done: true };
+            }
+          };
+        }
+      };
+      for (let value of iterableObject) {
+        console.log(value);
+      }
+      // 0
+      // 1
+      // 2
+
+      /* Diffrence between for...of and for..in */
+      // Both for..in and for...of statements iterate over something. The main diffrence between them is in what they iterate over.
+      // The for...in statement iterates over the enumerable properties of an object, in an arbitrary order.
+      // The for...of statement iterates over values that the iterable object defined to be itarted over.
+      // The following example shows the diffrence between a for...of loop and a for...in loop when used with an Array.
+
+      console.log("Diffrence between for...of and for..in");
+
+      Object.prototype.objCustom = function() {};
+      Array.prototype.arrCustom = function() {};
+
+      let iterableD = [3, 5, 7];
+      iterableD.foo = "hello";
+
+      for (let i in iterableD) {
+        console.log(i);
+      }
+      // logs 0, 1, 2, "foo", "arrCustom", "objCustom"
+
+      for (let i in iterableD) {
+        if (iterableD.hasOwnProperty(i)) {
+          console.log(i);
+        }
+      }
+      // logs 0, 1, 2, "foo"
+
+      for (let i of iterableD) {
+        console.log(i);
+      }
+      // for (let i of iterable) {
+      //   console.log(i); // logs 3, 5, 7
+      // }
     </script>
   </body>
 </html>
